@@ -13,9 +13,8 @@ Plataforma web/móvil tipo LMS (Learning Management System) orientada a estudian
 4. [Estructura del Proyecto](#-4-estructura-del-proyecto)
 5. [Instalación y Configuración Local](#️-5-instalación-y-configuración-local)
 6. [Roles y Permisos](#-6-roles-y-permisos)
-7. [Estado del Desarrollo](#-7-estado-del-desarrollo)
-8. [Forma de Trabajo](#-8-forma-de-trabajo)
-9. [Equipo de Desarrollo](#-9-equipo-de-desarrollo)
+7. [Forma de Trabajo](#-7-forma-de-trabajo)
+8. [Equipo de Desarrollo](#-8-equipo-de-desarrollo)
 
 ---
 
@@ -47,19 +46,17 @@ El objetivo principal es simular un sistema de autenticación de usuarios (login
 
 ## 📂 4. Estructura del Proyecto
 
-```
-proyecto-falk/
-│
-├── index.html            # Pantalla de Login
-├── styles/
-│   └── styles.css        # Estilos generales y paleta de colores
-├── pictures/
-│   └── logo-falk.png     # Logo de FALK
-├── js/                   # Lógica del front (pendiente)
-├── database/             # Script de creación de la base de datos (pendiente)
-├── docs/                 # Documentación: SRS, mockups y flujo de usuario (pendiente)
-└── README.md             # Documentación principal del proyecto
-```
+    proyecto-falk/
+    │
+    ├── index.html            # Pantalla de Login
+    ├── styles/
+    │   └── styles.css        # Estilos generales y paleta de colores
+    ├── pictures/
+    │   └── logo-falk.png     # Logo de FALK
+    ├── js/                   # Lógica del front (pendiente)
+    ├── database/             # Script de creación de la base de datos (pendiente)
+    ├── docs/                 # Documentación: SRS, mockups y flujo de usuario (pendiente)
+    └── README.md             # Documentación principal del proyecto
 
 ### Paleta de colores
 Los colores están definidos como variables en `styles/styles.css` (`:root`) para usarlos en todas las pantallas:
@@ -80,13 +77,13 @@ Los colores están definidos como variables en `styles/styles.css` (`:root`) par
 ## ⚙️ 5. Instalación y Configuración Local
 
 1. Clonar el repositorio:
-```bash
-   git clone https://github.com/karinacuadracode/proyecto-falk.git
-```
+
+        git clone https://github.com/karinacuadracode/proyecto-falk.git
+
 2. Entrar a la carpeta del proyecto:
-```bash
-   cd proyecto-falk
-```
+
+        cd proyecto-falk
+
 3. Abrir `index.html` en el navegador (doble clic) o con la extensión **Live Server** de VS Code.
 
 > Las instrucciones para levantar el backend y la base de datos se agregarán cuando estén definidos.
@@ -102,28 +99,14 @@ Los colores están definidos como variables en `styles/styles.css` (`:root`) par
 
 ---
 
-## 📌 7. Estado del Desarrollo
-
-| Requisito | Descripción | Estado |
-|---|---|---|
-| RF-01 | Inicio de sesión (pantalla de Login) | ✅ Front listo – en revisión |
-| RF-02 | Validación de credenciales | ⏳ Pendiente (back) |
-| RF-03 | Recuperación de contraseña | ⏳ Pendiente |
-| RF-04 | Redirección a Home | ⏳ Pendiente (depende de RF-02) |
-| RF-05 a RF-10 | Registro, validaciones y persistencia de usuarios | ⏳ Pendiente |
-| RF-11 a RF-22 | Home, Mis cursos y Calendario | ⏳ Pendiente |
-| RF-23 y RF-24 | Administrador y log de auditoría | ⏳ Pendiente |
-
----
-
-## 🔀 8. Forma de Trabajo
+## 🔀 7. Forma de Trabajo
 * Cada integrante trabaja en una **rama propia** (por ejemplo, `feature/login`).
 * Los cambios se suben mediante un **Pull Request** y otro integrante lo revisa antes de unirlo a `main`.
 * El avance de cada tarea se registra en el tablero de **Trello**.
 
 ---
 
-## 🧑‍💻 9. Equipo de Desarrollo
+## 🧑‍💻 8. Equipo de Desarrollo
 
 | Rol | Integrante |
 |---|---|
