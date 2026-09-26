@@ -11,10 +11,8 @@ Plataforma web/móvil tipo LMS (Learning Management System) orientada a estudian
 2. [Características Principales](#-2-características-principales)
 3. [Tecnologías Utilizadas](#️-3-tecnologías-utilizadas)
 4. [Estructura del Proyecto](#-4-estructura-del-proyecto)
-5. [Instalación y Configuración Local](#️-5-instalación-y-configuración-local)
-6. [Roles y Permisos](#-6-roles-y-permisos)
-7. [Forma de Trabajo](#-7-forma-de-trabajo)
-8. [Equipo de Desarrollo](#-8-equipo-de-desarrollo)
+5. [Roles y Permisos](#-6-roles-y-permisos)
+6. [Equipo de Desarrollo](#-8-equipo-de-desarrollo)
 
 ---
 
@@ -58,39 +56,9 @@ El objetivo principal es simular un sistema de autenticación de usuarios (login
     ├── docs/                 # Documentación: SRS, mockups y flujo de usuario (pendiente)
     └── README.md             # Documentación principal del proyecto
 
-### Paleta de colores
-Los colores están definidos como variables en `styles/styles.css` (`:root`) para usarlos en todas las pantallas:
-
-| Variable | Color | Uso |
-|---|---|---|
-| `--color-texto` | `#17517D` | Títulos, textos y texto de los campos |
-| `--color-campo` | `#48AF69` | Fondo de los campos |
-| `--color-boton` | `#368F8A` | Botón principal |
-| `--color-link` | `#368F8A` | Links |
-| `--color-fondo` | `#C2D9D1` | Fondo de la página |
-| `--color-encabezado` | `#FFFFFF` | Encabezado con el logo |
-| `--color-texto-boton` | `#FFFFFF` | Texto del botón |
-| `--color-error` | `#8C1D18` | Mensajes de error |
-
 ---
 
-## ⚙️ 5. Instalación y Configuración Local
-
-1. Clonar el repositorio:
-
-        git clone https://github.com/karinacuadracode/proyecto-falk.git
-
-2. Entrar a la carpeta del proyecto:
-
-        cd proyecto-falk
-
-3. Abrir `index.html` en el navegador (doble clic) o con la extensión **Live Server** de VS Code.
-
-> Las instrucciones para levantar el backend y la base de datos se agregarán cuando estén definidos.
-
----
-
-## 👥 6. Roles y Permisos
+## 👥 5. Roles y Permisos
 
 | Perfil | Permisos |
 |---|---|
@@ -99,14 +67,7 @@ Los colores están definidos como variables en `styles/styles.css` (`:root`) par
 
 ---
 
-## 🔀 7. Forma de Trabajo
-* Cada integrante trabaja en una **rama propia** (por ejemplo, `feature/login`).
-* Los cambios se suben mediante un **Pull Request** y otro integrante lo revisa antes de unirlo a `main`.
-* El avance de cada tarea se registra en el tablero de **Trello**.
-
----
-
-## 🧑‍💻 8. Equipo de Desarrollo
+## 🧑‍💻 6. Equipo de Desarrollo
 
 | Rol | Integrante |
 |---|---|
