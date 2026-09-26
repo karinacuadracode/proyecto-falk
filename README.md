@@ -2,7 +2,7 @@
 
 Plataforma web/móvil tipo LMS (Learning Management System) orientada a estudiantes, que permite la autenticación de usuarios, la gestión de cursos en progreso, la visualización de certificados y la consulta de un calendario académico con eventos por fecha.
 
-> Trabajo práctico grupal – Universidad Nacional Raúl Scalabrini Ortiz (UNSO). Entrega final: **20 de octubre de 2026**.
+> Trabajo práctico grupal – Universidad Nacional Raúl Scalabrini Ortiz (UNSO).
 
 ---
 
