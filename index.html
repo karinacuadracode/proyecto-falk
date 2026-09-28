@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenidos | FALK</title>
+
+    <!-- Tipografía -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+
+    <header class="encabezado">
+        <img src="pictures/logo-falk.png" alt="FALK - Plataforma de aprendizaje online" class="logo">
+    </header>
+
+    <main class="login">
+        <h1>Login</h1>
+        <p class="subtitulo">Ingresá para continuar</p>
+
+        <form id="form-login" novalidate>
+            <label for="usuario" class="sr-only">Usuario</label>
+            <input type="text" id="usuario" placeholder="Usuario">
+
+            <label for="contrasena" class="sr-only">Contraseña</label>
+            <input type="password" id="contrasena" placeholder="Contraseña">
+
+            <p id="mensaje-error" role="alert"></p>
+
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <a href="#" class="link-olvide">¿Olvidaste tu contraseña?</a>
+        <p class="sitio">www.aprendizajefalk.com</p>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+:root {
+  --color-texto: #17517D;
+  --color-campo: #48AF69;
+  --color-boton: #368F8A;
+  --color-link: #368F8A;
+
+  --color-fondo: #C2D9D1;
+  --color-encabezado: #FFFFFF;
+  --color-texto-boton: #FFFFFF;
+
+  --color-error: #8C1D18;
+
+  --fuente: "Poppins", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+/*header*/
+.encabezado {
+  padding: 48px 24px 64px;
+  background-color: var(--color-encabezado);
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 93% 90%, 85% 87%, 76% 92%, 67% 88%,
+                     58% 93%, 49% 89%, 40% 94%, 31% 89%, 22% 93%, 13% 88%, 6% 92%, 0 89%);
+}
+
+.logo {
+  width: 100%;
+  max-width: 330px;
+}
+
+/*main*/
+.login {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px 32px 40px;
+  text-align: center;
+}
+
+.login h1 {
+  margin: 16px 0 4px;
+  font-size: 2rem;
+}
+
+.subtitulo {
+  margin: 0 0 32px;
+  font-size: 1.1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input {
+  padding: 16px;
+  font-family: inherit;
+  font-size: 1.1rem;
+  text-align: center;
+  color: var(--color-texto);
+  background-color: var(--color-campo);
+  border: none;
+  border-radius: 999px;
+}
+
+input::placeholder {
+  color: var(--color-texto);
+  opacity: 1;
+}
+
+button {
+  padding: 16px;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-texto-boton);
+  background-color: var(--color-boton);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(0.9);
+}
+
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-texto);
+  outline-offset: 3px;
+}
+
+#mensaje-error {
+  min-height: 1.4em;
+  margin: -8px 0;
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.link-olvide {
+  display: inline-block;
+  margin-top: 40px;
+  color: var(--color-link);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link-olvide:hover {
+  text-decoration: underline;
+}
+
+.sitio {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  color: var(--color-link);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
