@@ -1,0 +1,40 @@
+@use "variables" as *;
+
+@mixin estilos-caja($padding, $margin, $gap) {
+    padding: $padding;
+    margin: $margin;
+    gap: $gap;
+}
+
+@mixin flexbox ($flex-direction, $justify-content, $align-items) {
+    flex-direction: $flex-direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+// forma de pildora para campos y botones
+@mixin pildora($padding: 16px) {
+    padding: $padding;
+    font-family: inherit;
+    border: none;
+    border-radius: $radio-pildora;
+}
+
+// borde visible al navegar con Tab (accesibilidad)
+@mixin foco-visible {
+    &:focus-visible {
+        outline: 3px solid $color-texto-general;
+        outline-offset: 3px;
+    }
+}
+
+// animacion para botones
+@mixin boton-presionable($profundidad: 6px, $duracion: 0.15s, $escala: 1.05) {
+    transition: transform $duracion ease;
+    &:hover {
+        transform: scale($escala);
+    }
+    &:active {
+        transform: translateY($profundidad);
+    }
+}

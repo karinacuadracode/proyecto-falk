@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="FALK, plataforma de aprendizaje online. Iniciá sesión para acceder a tus cursos y a tu calendario académico.">
-    <meta name="keywords" content="FALK, aprendizaje online, cursos, LMS, plataforma educativa">
+    <meta name="description" content="Creá tu cuenta en FALK, plataforma de aprendizaje online, y empezá a cursar.">
+    <meta name="keywords" content="FALK, crear cuenta, registro, aprendizaje online, cursos">
     <meta name="robots" content="index, follow">
 
     <meta name="author" content="Karina Cuadra">
 
-    <title>FALK | Iniciar sesión</title>
+    <title>FALK | Crear nueva cuenta</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,35 +19,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!--CSS-->
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 
 <body>
     <header class="encabezado">
-        <img src="pictures/logo-falk.png" alt="FALK - Plataforma de aprendizaje online" class="logo">
+        <img src="../pictures/logo-falk.png" alt="FALK - Plataforma de aprendizaje online" class="logo">
     </header>
 
     <main class="acceso">
-        <h1>Login</h1>
-        <p class="subtitulo">Ingresá para continuar</p>
+        <h1 class="titulo-registro">Crear nueva cuenta</h1>
 
-        <form id="form-login" novalidate>
+        <form id="form-registro" novalidate>
             <label for="usuario" class="sr-only">Usuario</label>
             <input type="text" id="usuario" placeholder="Usuario" autocomplete="username">
 
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" id="email" placeholder="Email" autocomplete="email">
+
             <label for="contrasena" class="sr-only">Contraseña</label>
-            <input type="password" id="contrasena" placeholder="Contraseña" autocomplete="current-password">
+            <input type="password" id="contrasena" placeholder="Contraseña" autocomplete="new-password">
 
             <p id="mensaje-error" role="alert"></p>
 
-            <button type="submit">Ingresar</button>
+            <button type="submit">Registrate</button>
         </form>
 
-        <a href="#" class="link-olvide">¿Olvidaste tu contraseña?</a>
-
         <div class="registro">
-            <p>¿No tenés cuenta?</p>
-            <a href="pages/crear-cuenta.html" class="boton-secundario">Crear cuenta</a>
+            <p>¿Ya tenés cuenta?</p>
+            <a href="../index.html" class="boton-secundario">Iniciar sesión</a>
         </div>
     </main>
 
@@ -56,7 +56,7 @@
     </footer>
 
     <!--JavaScript-->
-    <script src="js/login.js"></script>
+    <script src="../js/registro.js"></script>
 </body>
 
 </html>
