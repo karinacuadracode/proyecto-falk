@@ -1,0 +1,38 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+// formularios de login y crear cuenta
+form {
+    display: flex;
+    @include flexbox (column, null, stretch);
+    gap: 20px;
+    input {
+        font-size: 1.1rem;
+        text-align: center;
+        color: $color-texto-general;
+        background-color: $color-campo;
+        @include pildora();
+        @include foco-visible;
+        &::placeholder {
+            color: $color-texto-general;
+            opacity: 1;
+        }
+    }
+    button {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $color-boton1-texto;
+        background-color: $color-boton1-fondo;
+        cursor: pointer;
+        @include pildora();
+        @include foco-visible;
+        @include boton-presionable(3px, 0.15s, 1.02);
+    }
+}
+
+#mensaje-error {
+    min-height: 1.4em;
+    margin: -8px 0;
+    color: $color-error;
+    font-weight: 600;
+}

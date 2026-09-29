@@ -1,0 +1,127 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background-color: #C2D9D1;
+  color: #17517D;
+}
+
+a:focus-visible {
+  outline: 3px solid #17517D;
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.encabezado {
+  padding: 48px 24px 64px;
+  background-color: #FFFFFF;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 93% 90%, 85% 87%, 76% 92%, 67% 88%, 58% 93%, 49% 89%, 40% 94%, 31% 89%, 22% 93%, 13% 88%, 6% 92%, 0 89%);
+}
+
+.logo {
+  width: 100%;
+  max-width: 330px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input {
+  padding: 16px;
+  font-family: inherit;
+  border: none;
+  border-radius: 999px;
+}
+input:focus-visible {
+  outline: 3px solid #17517D;
+  outline-offset: 3px;
+}
+input {
+  font-size: 1.1rem;
+  text-align: center;
+  color: #17517D;
+  background-color: #48AF69;
+}
+input::placeholder {
+  color: #17517D;
+  opacity: 1;
+}
+
+button {
+  padding: 16px;
+  font-family: inherit;
+  border: none;
+  border-radius: 999px;
+}
+button:focus-visible {
+  outline: 3px solid #17517D;
+  outline-offset: 3px;
+}
+button {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background-color: #368F8A;
+  cursor: pointer;
+}
+button:hover {
+  filter: brightness(0.9);
+}
+
+#mensaje-error {
+  min-height: 1.4em;
+  margin: -8px 0;
+  color: #8C1D18;
+  font-weight: 600;
+}
+
+.acceso {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px 32px 40px;
+  text-align: center;
+}
+.acceso h1 {
+  margin: 16px 0 4px;
+  font-size: 2rem;
+}
+
+.subtitulo {
+  margin: 0 0 32px;
+  font-size: 1.1rem;
+}
+
+.link-olvide {
+  display: inline-block;
+  margin-top: 40px;
+  color: #368F8A;
+  font-weight: 700;
+  text-decoration: none;
+}
+.link-olvide:hover {
+  text-decoration: underline;
+}
+
+.sitio {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  color: #368F8A;
+}

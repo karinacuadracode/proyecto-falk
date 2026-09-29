@@ -1,0 +1,21 @@
+// utilities
+@use "utilities/variables";
+@use "utilities/mixins";
+
+// base
+@use "base/reset";
+@use "base/base";
+
+// principal
+@use "layout/header";
+
+// pages
+@use "components/formulario";
+@use "components/acceso";
+@use "components/mis-cursos";
+
+// footer
+@use "layout/footer";
+
+// media queries
+@use "layout/mediaqueries";
