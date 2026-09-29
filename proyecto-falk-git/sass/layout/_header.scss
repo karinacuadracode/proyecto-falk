@@ -1,0 +1,46 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+// header de login y crear cuenta
+.encabezado {
+    background-color: $color-header;
+    text-align: center;
+    width: 100%;
+    @include estilos-caja(48px 24px 64px, null, null);
+    // borde de abajo irregular, como el papel rasgado del mockup
+    clip-path: polygon(0 0, 100% 0, 100% 86%, 93% 90%, 85% 87%, 76% 92%, 67% 88%,
+                       58% 93%, 49% 89%, 40% 94%, 31% 89%, 22% 93%, 13% 88%, 6% 92%, 0 89%);
+}
+
+.logo {
+    width: 100%;
+    max-width: 330px;
+    height: auto;
+}
+
+// header de las paginas internas (mis cursos)
+.barra-superior {
+    display: flex;
+    background-color: $color-header;
+    width: 100%;
+    @include flexbox (row, space-between, center);
+    @include estilos-caja(16px 24px, null, 16px);
+    .logo {
+        max-width: 170px;
+    }
+}
+
+.boton-icono {
+    display: flex;
+    background: none;
+    border: none;
+    color: $color-texto-general;
+    cursor: pointer;
+    @include estilos-caja(4px, null, null);
+    @include foco-visible;
+    @include boton-presionable(2px, 0.15s, 1.1);
+    svg {
+        width: 32px;
+        height: 32px;
+    }
+}
