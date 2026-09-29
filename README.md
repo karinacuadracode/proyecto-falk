@@ -6,13 +6,6 @@ Plataforma web/móvil tipo LMS (Learning Management System) orientada a estudian
 
 ---
 
-## Funcionalidades
-* **Autenticación:** registro, inicio de sesión y recuperación de contraseña.
-* **Seguridad:** ID y correo únicos; contraseña de 8 caracteres o más, con mayúscula, número y símbolo.
-* **Mis cursos:** cursos inscriptos, lecciones en progreso y certificados.
-* **Calendario:** vista mensual con clases, entregas y exámenes.
-* **Auditoría:** log de accesos exitosos y fallidos, solo para administradores.
-
 ## Equipo
 
 | Rol | Integrante |
