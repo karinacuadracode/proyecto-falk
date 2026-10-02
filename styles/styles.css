@@ -147,6 +147,10 @@ form button:active {
   color: #17517D;
 }
 
+#mensaje-error.exito {
+  color: #17517D;
+}
+
 .acceso {
   max-width: 400px;
   text-align: center;
