@@ -29,14 +29,16 @@
         <h1>Login</h1>
         <p class="subtitulo">Ingresá para continuar</p>
 
-        <form id="form-login" novalidate>
-            <label for="usuario" class="sr-only">Usuario</label>
-            <input type="text" id="usuario" placeholder="Usuario" autocomplete="username">
+        <form id="form-login" method="post" novalidate>
+            <label for="usuario" class="sr-only">Usuario o email</label>
+            <input type="text" id="usuario" name="usuario" placeholder="Usuario o email"
+                   autocomplete="username" required maxlength="255">
 
             <label for="contrasena" class="sr-only">Contraseña</label>
-            <input type="password" id="contrasena" placeholder="Contraseña" autocomplete="current-password">
+            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña"
+                   autocomplete="current-password" required maxlength="72">
 
-            <p id="mensaje-error" role="alert"></p>
+            <p id="mensaje-error" role="alert" aria-live="polite"></p>
 
             <button type="submit">Ingresar</button>
         </form>
