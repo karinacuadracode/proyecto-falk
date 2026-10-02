@@ -141,6 +141,12 @@ form button:active {
   font-weight: 600;
 }
 
+.ayuda {
+  font-size: 0.85rem;
+  margin: -12px 0 0;
+  color: #17517D;
+}
+
 .acceso {
   max-width: 400px;
   text-align: center;
@@ -290,3 +296,5 @@ form button:active {
     margin: 0 auto;
   }
 }
+
+/*# sourceMappingURL=styles.css.map */
