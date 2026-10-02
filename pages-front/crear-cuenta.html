@@ -28,17 +28,22 @@
     <main class="acceso">
         <h1 class="titulo-registro">Crear nueva cuenta</h1>
 
-        <form id="form-registro" novalidate>
+        <form id="form-registro" method="post" novalidate>
             <label for="usuario" class="sr-only">Usuario</label>
-            <input type="text" id="usuario" placeholder="Usuario" autocomplete="username">
+            <input type="text" id="usuario" name="usuario" placeholder="Usuario"
+                   autocomplete="username" required minlength="3" maxlength="30">
 
             <label for="email" class="sr-only">Email</label>
-            <input type="email" id="email" placeholder="Email" autocomplete="email">
+            <input type="email" id="email" name="email" placeholder="Email"
+                   autocomplete="email" required maxlength="255">
 
             <label for="contrasena" class="sr-only">Contraseña</label>
-            <input type="password" id="contrasena" placeholder="Contraseña" autocomplete="new-password">
+            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña"
+                   autocomplete="new-password" required minlength="8" maxlength="64"
+                   aria-describedby="ayuda-contrasena">
+            <p id="ayuda-contrasena" class="ayuda">Mínimo 8 caracteres, con mayúscula, minúscula y número.</p>
 
-            <p id="mensaje-error" role="alert"></p>
+            <p id="mensaje-error" role="alert" aria-live="polite"></p>
 
             <button type="submit">Registrate</button>
         </form>
