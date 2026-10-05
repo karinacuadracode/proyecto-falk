@@ -25,7 +25,7 @@ requerirSesion();
 
 <body>
     <header class="barra-superior">
-        <button type="button" class="boton-icono" aria-label="Abrir menú">
+        <button type="button" class="boton-icono" id="boton-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
                 <line x1="3" y1="6" x2="21" y2="6"/>
                 <line x1="3" y1="12" x2="21" y2="12"/>
@@ -42,6 +42,16 @@ requerirSesion();
             </svg>
         </a>
     </header>
+
+    <!-- Menú de navegación: arranca oculto (hidden) y lo abre js/menu.js -->
+    <nav id="menu-principal" class="menu-lateral" aria-label="Menú principal" hidden>
+        <ul>
+            <li><a href="home.php" aria-current="page">Home</a></li>
+            <li><a href="mis-cursos.php">Mis cursos</a></li>
+            <li><a href="calendario.php">Calendario</a></li>
+            <li><a href="../controllers/logout-controller.php">Cerrar sesión</a></li>
+        </ul>
+    </nav>
 
     <main class="contenedor-principal">
         <section class="seccion-home">
@@ -94,12 +104,11 @@ requerirSesion();
                 </svg>
             </a>
         </section>
-
-        <!-- Provisorio: cuando esté el menú, "Cerrar sesión" pasa adentro del menú. -->
-        <section class="seccion-home">
-            <a href="../controllers/logout-controller.php" class="boton-secundario">Cerrar sesión</a>
-        </section>
+        
     </main>
+        
+    <!--JavaScript-->
+    <script src="../js/menu.js"></script>
 </body>
 
 </html>
