@@ -39,13 +39,16 @@ formulario.addEventListener('submit', async (evento) => {
         if (datos.success) {
             formulario.reset();
             // RF-09: con la cuenta creada, el usuario entra directo a Home.
+            // El botón queda deshabilitado hasta que cambia la página (evita un segundo envío).
             setTimeout(() => {
                 window.location.href = datos.redirect;
             }, 1500);
+            return;
         }
+
+        boton.disabled = false; // hubo un error de datos: se puede corregir y reintentar
     } catch (error) {
         mostrarMensaje('No pudimos conectar con el servidor. Intentá nuevamente.');
-    } finally {
         boton.disabled = false;
     }
 });
