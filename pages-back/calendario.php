@@ -83,7 +83,7 @@ requerirSesion();
             </div>
 
             <div id="detalle-eventos" class="detalle-eventos" aria-live="polite">
-                <p>Elegí un día para ver sus eventos.</p>
+                <p>Elegí un día para ver tus eventos.</p>
             </div>
         </section>
     </main>
