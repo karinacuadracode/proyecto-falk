@@ -2,12 +2,13 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/session.php';
 header('Content-Type: application/json; charset=utf-8');
 
 // Corta la ejecución y responde siempre con el mismo formato JSON.
-function responder(int $codigo, bool $ok, string $mensaje): void {
+function responder(int $codigo, bool $ok, string $mensaje, ?string $redireccion = null): void {
     http_response_code($codigo);
-    echo json_encode(['success' => $ok, 'message' => $mensaje]);
+    echo json_encode(['success' => $ok, 'message' => $mensaje, 'redirect' => $redireccion]);
     exit;
 }
 
@@ -30,12 +31,12 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 255) {
     responder(422, false, 'Ingresá un email válido.');
 }
 
-// Política de contraseña (ajustar según RF-07).
+// Política de contraseña (RN-07: mínimo 8 caracteres, al menos una mayúscula, un número y un símbolo).
 if (mb_strlen($contrasena) < 8 || strlen($contrasena) > 72
     || !preg_match('/[A-Z]/', $contrasena)
-    || !preg_match('/[a-z]/', $contrasena)
-    || !preg_match('/[0-9]/', $contrasena)) {
-    responder(422, false, 'La contraseña debe tener al menos 8 caracteres, con mayúscula, minúscula y número.');
+    || !preg_match('/[0-9]/', $contrasena)
+    || !preg_match('/[^a-zA-Z0-9]/', $contrasena)) {
+    responder(422, false, 'La contraseña debe tener al menos 8 caracteres, con una mayúscula, un número y un símbolo.');
 }
 
 // 4. Hash con bcrypt (RNF-03). Nunca guardamos la contraseña en texto plano.
@@ -51,6 +52,7 @@ try {
         ':email'   => $email,
         ':hash'    => $hash,
     ]);
+    $nuevoId = (int) $db->lastInsertId();
 } catch (PDOException $e) {
     // 1062 = clave duplicada (RN-01 / RN-06). El mensaje no dice cuál dato está repetido.
     if (($e->errorInfo[1] ?? null) === 1062) {
@@ -60,4 +62,12 @@ try {
     responder(500, false, 'Ocurrió un error. Intentá más tarde.');
 }
 
-responder(201, true, 'Cuenta creada. Ya podés iniciar sesión.');
+// 6. RF-09: al registrarse, el usuario queda logueado y entra a Home (misma sesión segura que el login, RN-04).
+iniciarSesionSegura();
+session_regenerate_id(true);
+$_SESSION['user_id'] = $nuevoId;
+$_SESSION['username'] = $usuario;
+$_SESSION['role'] = 'usuario';
+$_SESSION['ultima_actividad'] = time();
+
+responder(201, true, 'Cuenta creada. ¡Bienvenido/a a FALK!', '../pages-back/home.php');
