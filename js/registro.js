@@ -18,6 +18,13 @@ formulario.addEventListener('submit', async (evento) => {
         return;
     }
 
+    // RN-07: al menos una mayúscula, un número y un símbolo (el mínimo de 8 ya lo controla minlength).
+    const contrasena = document.getElementById('contrasena').value;
+    if (!/[A-Z]/.test(contrasena) || !/[0-9]/.test(contrasena) || !/[^a-zA-Z0-9]/.test(contrasena)) {
+        mostrarMensaje('La contraseña debe tener al menos 8 caracteres, con una mayúscula, un número y un símbolo.');
+        return;
+    }
+
     boton.disabled = true; // evita el doble envío por doble clic
 
     try {
@@ -31,8 +38,9 @@ formulario.addEventListener('submit', async (evento) => {
 
         if (datos.success) {
             formulario.reset();
+            // RF-09: con la cuenta creada, el usuario entra directo a Home.
             setTimeout(() => {
-                window.location.href = '../index.html';
+                window.location.href = datos.redirect;
             }, 1500);
         }
     } catch (error) {
