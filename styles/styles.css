@@ -313,6 +313,76 @@ form button:active {
   height: auto;
 }
 
+.calendario-mes {
+  background-color: #D4E4DE;
+  border-radius: 16px;
+  width: 100%;
+  padding: 16px;
+}
+
+.calendario-navegacion {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 12px;
+  gap: 8px;
+}
+.calendario-navegacion h2 {
+  font-size: 1.2rem;
+}
+
+.calendario-dias-semana,
+.calendario-grilla {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendario-dias-semana {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.calendario-dia {
+  aspect-ratio: 1;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #17517D;
+  background-color: #FFFFFF;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.calendario-dia:focus-visible {
+  outline: 3px solid #17517D;
+  outline-offset: 3px;
+}
+.calendario-dia.con-evento {
+  background-color: #368F8A;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+.calendario-dia.hoy {
+  border-color: #17517D;
+}
+
+.detalle-eventos {
+  width: 100%;
+  text-align: left;
+  border: 2px solid #D4E4DE;
+  border-radius: 16px;
+  padding: 16px;
+}
+.detalle-eventos h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.detalle-eventos ul {
+  padding-left: 20px;
+}
+
 .footer {
   text-align: center;
   width: 100%;
