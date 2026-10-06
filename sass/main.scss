@@ -8,11 +8,13 @@
 
 // principal
 @use "layout/header";
+@use "layout/menu";
 
 // pages
 @use "components/formulario";
 @use "components/acceso";
 @use "components/mis-cursos";
+@use "components/calendario";
 
 // footer
 @use "layout/footer";

@@ -1,0 +1,69 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+// pagina calendario
+.calendario-mes {
+    background-color: $color-contenedor-cursos;
+    border-radius: 16px;
+    width: 100%;
+    @include estilos-caja(16px, null, null);
+}
+
+.calendario-navegacion {
+    display: flex;
+    @include flexbox(row, space-between, center);
+    @include estilos-caja(0 0 12px, null, 8px);
+    h2 {
+        font-size: 1.2rem;
+    }
+}
+
+.calendario-dias-semana,
+.calendario-grilla {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+.calendario-dias-semana {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.calendario-dia {
+    aspect-ratio: 1;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: $color-texto-general;
+    background-color: $color-tarjeta-curso;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    @include foco-visible;
+    // dia con eventos: relleno verde
+    &.con-evento {
+        background-color: $color-boton1-fondo;
+        color: $color-boton1-texto;
+        font-weight: 700;
+    }
+    // dia de hoy: borde
+    &.hoy {
+        border-color: $color-texto-general;
+    }
+}
+
+.detalle-eventos {
+    width: 100%;
+    text-align: left;
+    border: 2px solid $color-contenedor-cursos;
+    border-radius: 16px;
+    @include estilos-caja(16px, null, null);
+    h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    ul {
+        padding-left: 20px;
+    }
+}

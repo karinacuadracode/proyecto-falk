@@ -1,0 +1,44 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+// menu lateral (se abre con el boton de hamburguesa)
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 260px;
+    max-width: 80%;
+    height: 100vh;
+    background-color: $color-header;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);
+    @include estilos-caja(96px 24px 24px, null, null);
+    &[hidden] {
+        display: none;
+    }
+    ul {
+        list-style: none;
+        display: flex;
+        @include flexbox(column, null, stretch);
+        @include estilos-caja(0, 0, 8px);
+    }
+    a {
+        display: block;
+        font-weight: 600;
+        text-decoration: none;
+        color: $color-texto-general;
+        border-radius: $radio-pildora;
+        @include estilos-caja(12px 16px, null, null);
+        &:hover,
+        &[aria-current="page"] {
+            background-color: $color-boton1-fondo;
+            color: $color-boton1-texto;
+        }
+    }
+}
+
+// el boton de hamburguesa queda por encima del menu para poder cerrarlo
+#boton-menu {
+    position: relative;
+    z-index: 11;
+}
