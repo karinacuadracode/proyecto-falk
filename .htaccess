@@ -1,0 +1,5 @@
+# RNF-03: toda la comunicación entre cliente y servidor va por HTTPS/TLS.
+# Si alguien entra por http://, se lo redirige automáticamente a https://.
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
