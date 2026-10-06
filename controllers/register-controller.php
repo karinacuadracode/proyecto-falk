@@ -70,4 +70,4 @@ $_SESSION['username'] = $usuario;
 $_SESSION['role'] = 'usuario';
 $_SESSION['ultima_actividad'] = time();
 
-responder(201, true, 'Cuenta creada. ¡Bienvenido/a a FALK!', '../pages-back/home.php');
+responder(201, true, 'Cuenta creada. ¡Bienvenida/o a FALK!', '../pages-back/home.php');
