@@ -8,9 +8,12 @@ function mostrarMensaje(texto, esExito = false) {
 }
 
 // RN-04: si la sesión se cerró por inactividad, se avisa.
+// RF-09: si viene de crear la cuenta, se confirma el registro.
 const motivo = new URLSearchParams(window.location.search).get('motivo');
 if (motivo === 'inactividad') {
     mostrarMensaje('Tu sesión se cerró por inactividad. Volvé a ingresar.');
+} else if (motivo === 'registro') {
+    mostrarMensaje('Cuenta creada. Ya podés iniciar sesión.', true);
 }
 
 formulario.addEventListener('submit', async (evento) => {
