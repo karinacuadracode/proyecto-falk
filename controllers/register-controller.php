@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/db.php';
-require_once __DIR__ . '/../config/session.php';
 header('Content-Type: application/json; charset=utf-8');
 
 // Corta la ejecución y responde siempre con el mismo formato JSON.
@@ -52,7 +51,6 @@ try {
         ':email'   => $email,
         ':hash'    => $hash,
     ]);
-    $nuevoId = (int) $db->lastInsertId();
 } catch (PDOException $e) {
     // 1062 = clave duplicada (RN-01 / RN-06). El mensaje no dice cuál dato está repetido.
     if (($e->errorInfo[1] ?? null) === 1062) {
@@ -62,12 +60,5 @@ try {
     responder(500, false, 'Ocurrió un error. Intentá más tarde.');
 }
 
-// 6. RF-09: al registrarse, el usuario queda logueado y entra a Home (misma sesión segura que el login, RN-04).
-iniciarSesionSegura();
-session_regenerate_id(true);
-$_SESSION['user_id'] = $nuevoId;
-$_SESSION['username'] = $usuario;
-$_SESSION['role'] = 'usuario';
-$_SESSION['ultima_actividad'] = time();
-
-responder(201, true, 'Cuenta creada. ¡Bienvenida/o a FALK!', '../pages-back/home.php');
+// 6. RF-09: el registro NO inicia sesión. El usuario va al Login y verifica sus credenciales.
+responder(201, true, 'Cuenta creada. Ya podés iniciar sesión.', '../index.html');

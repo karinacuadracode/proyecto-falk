@@ -38,10 +38,10 @@ formulario.addEventListener('submit', async (evento) => {
 
         if (datos.success) {
             formulario.reset();
-            // RF-09: con la cuenta creada, el usuario entra directo a Home.
+            // RF-09: con la cuenta creada, el usuario va al Login para verificar sus credenciales.
             // El botón queda deshabilitado hasta que cambia la página (evita un segundo envío).
             setTimeout(() => {
-                window.location.href = datos.redirect;
+                window.location.href = '../index.html'; // destino fijo (evita open redirect)
             }, 1500);
             return;
         }
