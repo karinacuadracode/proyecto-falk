@@ -34,18 +34,14 @@ formulario.addEventListener('submit', async (evento) => {
         });
         const datos = await respuesta.json();
 
-        mostrarMensaje(datos.message, datos.success);
-
         if (datos.success) {
-            formulario.reset();
-            // RF-09: con la cuenta creada, el usuario va al Login para verificar sus credenciales.
-            // El botón queda deshabilitado hasta que cambia la página (evita un segundo envío).
-            setTimeout(() => {
-                window.location.href = '../index.html'; // destino fijo (evita open redirect)
-            }, 1500);
+            // RF-09: con la cuenta creada, el usuario va directo al Login para verificar sus credenciales.
+            // El mensaje de éxito lo muestra login.js. El botón queda deshabilitado (evita un segundo envío).
+            window.location.href = '../index.html?motivo=registro'; // destino fijo (evita open redirect)
             return;
         }
 
+        mostrarMensaje(datos.message);
         boton.disabled = false; // hubo un error de datos: se puede corregir y reintentar
     } catch (error) {
         mostrarMensaje('No pudimos conectar con el servidor. Intentá nuevamente.');
