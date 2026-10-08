@@ -515,6 +515,145 @@ form button:active {
   color: #FFFFFF;
 }
 
+.certificado-seccion {
+  display: flex;
+  max-width: 400px;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px 40px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+.certificado {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  background-color: #FFFFFF;
+  border: 2px solid #368F8A;
+  border-radius: 24px;
+  outline: 6px solid #D4E4DE;
+  box-shadow: 0 8px 24px rgba(23, 81, 125, 0.12);
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px;
+  margin: 6px;
+  gap: 8px;
+}
+
+.certificado-logo {
+  width: 140px;
+  margin-bottom: 8px;
+}
+
+.certificado-titulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #368F8A;
+  margin-bottom: 8px;
+}
+
+.certificado-nombre {
+  font-size: 1.6rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  border-bottom: 2px solid #C2D9D1;
+  padding: 4px 16px;
+}
+
+.certificado-curso {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #368F8A;
+}
+
+.certificado-fecha {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+.certificado-acciones {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.boton-imprimir {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background-color: #368F8A;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 12px 28px;
+  transition: transform 0.15s ease;
+}
+.boton-imprimir:hover {
+  transform: scale(1.02);
+}
+.boton-imprimir:active {
+  transform: translateY(3px);
+}
+.boton-imprimir:focus-visible {
+  outline: 3px solid #17517D;
+  outline-offset: 3px;
+}
+
+.certificado-aviso {
+  width: 100%;
+  text-align: center;
+  background-color: #D4E4DE;
+  border-radius: 16px;
+  padding: 24px 20px;
+}
+.certificado-aviso h1 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+@media print {
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+  .barra-superior,
+  .menu-lateral,
+  .certificado-acciones {
+    display: none;
+  }
+  .contenedor-principal {
+    min-height: auto;
+  }
+  .certificado-seccion {
+    max-width: none;
+    height: 100vh;
+    justify-content: center;
+    padding: 0 15%;
+    margin: 0;
+  }
+  .certificado {
+    box-shadow: none;
+    print-color-adjust: exact;
+    padding: 48px 32px;
+    gap: 12px;
+  }
+  .certificado-titulo {
+    font-size: 2rem;
+  }
+  .certificado-nombre {
+    font-size: 2.4rem;
+  }
+  .certificado-curso {
+    font-size: 1.6rem;
+  }
+}
 .footer {
   text-align: center;
   width: 100%;
@@ -542,6 +681,29 @@ form button:active {
   .acceso {
     padding: 40px 32px 16px;
     margin: 0 auto;
+  }
+}
+@media screen and (min-width: 768px) {
+  .certificado-seccion {
+    max-width: 760px;
+  }
+  .certificado {
+    padding: 48px 40px;
+    margin: 6px;
+    gap: 12px;
+  }
+  .certificado-titulo {
+    font-size: 2rem;
+  }
+  .certificado-nombre {
+    font-size: 2.4rem;
+  }
+  .certificado-curso {
+    font-size: 1.6rem;
+  }
+  .certificado-acciones {
+    flex-direction: row;
+    justify-content: center;
   }
 }
 
