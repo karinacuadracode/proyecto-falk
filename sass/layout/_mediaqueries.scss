@@ -19,3 +19,26 @@
         @include estilos-caja(40px 32px 16px, 0 auto, null);
     }
 }
+
+// certificado:
+@media screen and (min-width: 768px) {
+    .certificado-seccion {
+        max-width: 760px;
+    }
+    .certificado {
+        @include estilos-caja(48px 40px, 6px, 12px);
+    }
+    .certificado-titulo {
+        font-size: 2rem;
+    }
+    .certificado-nombre {
+        font-size: 2.4rem;
+    }
+    .certificado-curso {
+        font-size: 1.6rem;
+    }
+    .certificado-acciones {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
