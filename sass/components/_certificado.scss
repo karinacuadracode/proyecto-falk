@@ -1,0 +1,128 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+// pagina certificado (RF-18)
+.certificado-seccion {
+    display: flex;
+    max-width: $ancho-contenido;
+    @include flexbox (column, null, center);
+    @include estilos-caja(8px 16px 40px, 0 auto, 24px);
+}
+
+// el certificado: tarjeta tipo diploma
+.certificado {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    background-color: $color-tarjeta-curso;
+    border: 2px solid $color-boton1-fondo;
+    border-radius: 24px;
+    outline: 6px solid $color-contenedor-cursos;
+    box-shadow: 0 8px 24px rgba(23, 81, 125, 0.12);
+    @include flexbox (column, null, center);
+    @include estilos-caja(32px 20px, 6px, 8px);
+}
+
+.certificado-logo {
+    width: 140px;
+    margin-bottom: 8px;
+}
+
+.certificado-titulo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $color-boton1-fondo;
+    margin-bottom: 8px;
+}
+
+.certificado-nombre {
+    font-size: 1.6rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    border-bottom: 2px solid $color-principal;
+    @include estilos-caja(4px 16px, null, null);
+}
+
+.certificado-curso {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $color-boton1-fondo;
+}
+
+.certificado-fecha {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 8px;
+}
+
+.certificado-acciones {
+    display: flex;
+    width: 100%;
+    @include flexbox (column, null, center);
+    @include estilos-caja(null, null, 12px);
+}
+
+// boton principal
+.boton-imprimir {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    color: $color-boton1-texto;
+    background-color: $color-boton1-fondo;
+    border: none;
+    border-radius: $radio-pildora;
+    cursor: pointer;
+    @include estilos-caja(12px 28px, null, null);
+    @include boton-presionable(3px, 0.15s, 1.02);
+    @include foco-visible;
+}
+
+// RN-03: aviso cuando el curso no esta finalizado
+.certificado-aviso {
+    width: 100%;
+    text-align: center;
+    background-color: $color-contenedor-cursos;
+    border-radius: 16px;
+    @include estilos-caja(24px 20px, null, null);
+    h1 {
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+    }
+}
+
+@media print {
+    @page {
+        size: landscape;
+        margin: 0; 
+    }
+    .barra-superior,
+    .menu-lateral,
+    .certificado-acciones {
+        display: none;
+    }
+    .contenedor-principal {
+        min-height: auto;
+    }
+    .certificado-seccion {
+        max-width: none;
+        height: 100vh;
+        justify-content: center;
+        @include estilos-caja(0 15%, 0, null);
+    }
+    .certificado {
+        box-shadow: none;
+        print-color-adjust: exact; 
+        @include estilos-caja(48px 32px, null, 12px);
+    }
+    .certificado-titulo {
+        font-size: 2rem;
+    }
+    .certificado-nombre {
+        font-size: 2.4rem;
+    }
+    .certificado-curso {
+        font-size: 1.6rem;
+    }
+}
