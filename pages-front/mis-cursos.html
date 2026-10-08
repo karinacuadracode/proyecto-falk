@@ -22,7 +22,7 @@
 
 <body>
     <header class="barra-superior">
-        <button type="button" class="boton-icono" aria-label="Abrir menú">
+        <button type="button" class="boton-icono" id="boton-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
                 <line x1="3" y1="6" x2="21" y2="6"/>
                 <line x1="3" y1="12" x2="21" y2="12"/>
@@ -40,19 +40,32 @@
         </a>
     </header>
 
+<nav id="menu-principal" class="menu-lateral" aria-label="Menú principal" hidden>
+        <ul>
+            <li><a href="home.php" aria-current="page">Home</a></li>
+            <li><a href="mis-cursos.php">Mis cursos</a></li>
+            <li><a href="calendario.php">Calendario</a></li>
+            <li><a href="../controllers/logout-controller.php">Cerrar sesión</a></li>
+        </ul>
+    </nav>
+
     <main class="contenedor-principal">
         <section class="seccion-home">
             <h2>Mis cursos</h2>
 
             <div class="contenedor-cursos">
+                <!-- Tarjeta 1: Cumple RF-16 y RF-17 (Continuar curso) -->
                 <article class="tarjeta-curso">
                     <h3>Nombre del curso</h3>
                     <p>En progreso</p>
+                    <a href="#" style="text-decoration: underline; color: #004d40;">Continuar desde última lección</a>
                 </article>
 
+                <!-- Tarjeta 2: Cumple RF-16 y RF-18 (Ver certificado) -->
                 <article class="tarjeta-curso">
                     <h3>Nombre del curso</h3>
                     <p>Finalizado</p>
+                    <a href="#" style="text-decoration: underline; color: #004d40;">Visualizar certificado</a>
                 </article>
 
                 <button type="button" class="boton-icono" aria-label="Ver más cursos">
@@ -66,7 +79,7 @@
         <section class="seccion-home">
             <h2>Calendario</h2>
 
-            <a href="#" class="calendario" aria-label="Ver calendario">
+            <a href="calendario.php" class="calendario" aria-label="Ver calendario">
                 <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
                     <rect x="6" y="10" width="52" height="48" rx="8"/>
                     <rect x="11" y="24" width="42" height="29" rx="2" fill="#FFFFFF"/>
@@ -87,6 +100,8 @@
             </a>
         </section>
     </main>
+    <!-- Script para que funcione el menú -->
+    <script src="../js/menu.js"></script>
 </body>
 
 </html>
