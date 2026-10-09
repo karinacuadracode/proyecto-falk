@@ -97,14 +97,18 @@
             const descripcion = document.getElementById("descripcion-dinamica"); // Capturamos el nuevo párrafo
 
             // Cambiar el contenido según el parámetro
-            if (cursoID === "bd") {
+            if (cursoID === "base-de-datos") {
                 titulo.textContent = "Base de Datos";
                 modulo.textContent = "Módulo 1: Introducción a SQL y modelado relacional";
                 descripcion.textContent = "En este video aprenderemos a estructurar bases de datos y realizar las primeras consultas SQL. Descargá el apunte adjunto antes de avanzar al siguiente módulo.";
-            } else if (cursoID === "web") {
+            } else if (cursoID === "programación-web" || cursoID === "programacion-web") { // Por las dudas con o sin tilde
                 titulo.textContent = "Programación Web";
                 modulo.textContent = "Módulo 1: Estructuras HTML y maquetado CSS";
                 descripcion.textContent = "En este video aprenderemos a maquetar una página web desde cero usando HTML5 y CSS3. Descargá el apunte adjunto antes de avanzar al siguiente módulo.";
+            } else if (cursoID === "programación-inicial" || cursoID === "programacion-inicial") {
+                titulo.textContent = "Programación inicial";
+                modulo.textContent = "Módulo 1: Conceptos básicos de algoritmos";
+                descripcion.textContent = "En este video aprenderemos los fundamentos de la lógica de programación. Descargá el apunte adjunto antes de avanzar al siguiente módulo.";
             }
         });
     </script>
