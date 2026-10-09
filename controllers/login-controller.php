@@ -11,7 +11,7 @@ function responder(int $codigo, bool $ok, string $mensaje, ?string $redireccion 
     exit;
 }
 
-// Registra cada intento en audit_log (RF-24).
+// Registra cada intento en audit_log.
 function registrarIntento(PDO $db, string $identificador, string $resultado): void {
     $stmt = $db->prepare('INSERT INTO audit_log (User_Email, Result, IP_Address) VALUES (:id, :res, :ip)');
     $stmt->execute([
