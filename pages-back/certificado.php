@@ -5,7 +5,7 @@ requerirSesion();
 
 // El curso llega por la URL (certificado.php?curso=2)
 $idCurso = filter_input(INPUT_GET, 'curso', FILTER_VALIDATE_INT);
-$curso = $idCurso ? buscarCurso($idCurso) : null;
+$curso = $idCurso ? buscarCurso($idCurso, $_SESSION['user_id']) : null;
 
 // El certificado solo está disponible si el curso se completó en su totalidad
 $disponible = $curso !== null && $curso['estado'] === 'finalizado';
