@@ -15,16 +15,27 @@ function fechaClave(anio, mes, dia) {
 const hoy = new Date();
 
 // Eventos de ejemplo (provisorio): cuando exista la tabla de eventos, van a venir de evento-controller.php.
+// Cada evento tiene nombre, tipo (clase, entrega, examen u otro) y hora.
 const eventos = {
-    [fechaClave(hoy.getFullYear(), hoy.getMonth(), 8)]: ['Entrega TP 1 - Programación Web'],
-    [fechaClave(hoy.getFullYear(), hoy.getMonth(), 15)]: ['Clase de consulta', 'Parcial de Base de Datos'],
-    [fechaClave(hoy.getFullYear(), hoy.getMonth(), 22)]: ['Cierre de inscripción a cursos'],
+    [fechaClave(hoy.getFullYear(), hoy.getMonth(), 8)]: [
+        { nombre: 'Entrega TP 1 - Programación Web', tipo: 'entrega', hora: '23:59' },
+    ],
+    [fechaClave(hoy.getFullYear(), hoy.getMonth(), 15)]: [
+        { nombre: 'Clase de consulta', tipo: 'clase', hora: '18:00' },
+        { nombre: 'Parcial de Base de Datos', tipo: 'examen', hora: '19:30' },
+    ],
+    [fechaClave(hoy.getFullYear(), hoy.getMonth(), 22)]: [
+        { nombre: 'Cierre de inscripción a cursos', tipo: 'otro', hora: '12:00' },
+    ],
 };
+
+// Texto que se muestra en la etiqueta de cada tipo de evento
+const TIPOS_EVENTO = { clase: 'Clase', entrega: 'Entrega', examen: 'Examen', otro: 'Otro' };
 
 let anioActual = hoy.getFullYear();
 let mesActual = hoy.getMonth(); // 0 = enero
 
-// Vuelve el panel de eventos al mensaje inicial (por ejemplo, al cambiar de mes).
+// Vuelve el panel de eventos al mensaje inicial (por ejemplo, al cambiar de mes)
 function reiniciarDetalle() {
     const mensaje = document.createElement('p');
     mensaje.textContent = 'Elegí un día para ver tus eventos.';
@@ -33,8 +44,8 @@ function reiniciarDetalle() {
 
 function dibujarCalendario() {
     tituloMes.textContent = `${NOMBRES_MESES[mesActual]} ${anioActual}`;
-    grilla.replaceChildren(); // borra los días del mes anterior
-    reiniciarDetalle();       // y el detalle del día que se había elegido
+    grilla.replaceChildren(); 
+    reiniciarDetalle();       
 
     // getDay() da 0 = domingo; lo pasamos a semana que empieza el lunes (0 = lunes).
     const primerDia = (new Date(anioActual, mesActual, 1).getDay() + 6) % 7;
@@ -51,6 +62,7 @@ function dibujarCalendario() {
         boton.type = 'button';
         boton.className = 'calendario-dia';
         boton.textContent = dia;
+        boton.setAttribute('aria-pressed', 'false'); 
 
         if (eventos[clave]) {
             boton.classList.add('con-evento');
@@ -62,12 +74,25 @@ function dibujarCalendario() {
             boton.setAttribute('aria-current', 'date');
         }
 
-        boton.addEventListener('click', () => mostrarEventos(dia, clave));
+        boton.addEventListener('click', () => seleccionarDia(boton, dia, clave));
         grilla.append(boton);
     }
 }
 
-// Muestra los eventos del día elegido. Usa textContent (nunca innerHTML) para evitar XSS.
+// Marca el día elegido, desmarca el anterior y muestra sus eventos
+function seleccionarDia(boton, dia, clave) {
+    const anterior = grilla.querySelector('.seleccionado');
+    if (anterior) {
+        anterior.classList.remove('seleccionado');
+        anterior.setAttribute('aria-pressed', 'false');
+    }
+
+    boton.classList.add('seleccionado');
+    boton.setAttribute('aria-pressed', 'true');
+    mostrarEventos(dia, clave);
+}
+
+// Muestra los eventos del día elegido
 function mostrarEventos(dia, clave) {
     detalle.replaceChildren();
 
@@ -84,9 +109,26 @@ function mostrarEventos(dia, clave) {
     }
 
     const ul = document.createElement('ul');
-    lista.forEach((nombre) => {
+    lista.forEach((evento) => {
         const li = document.createElement('li');
-        li.textContent = nombre;
+        li.className = 'evento';
+
+        // Solo se aceptan los tipos conocidos; cualquier otro se muestra como "Otro"
+        const tipo = TIPOS_EVENTO[evento.tipo] ? evento.tipo : 'otro';
+
+        const etiqueta = document.createElement('span');
+        etiqueta.className = `etiqueta-evento tipo-${tipo}`;
+        etiqueta.textContent = TIPOS_EVENTO[tipo];
+
+        const nombre = document.createElement('span');
+        nombre.className = 'evento-nombre';
+        nombre.textContent = evento.nombre;
+
+        const hora = document.createElement('span');
+        hora.className = 'evento-hora';
+        hora.textContent = `${evento.hora} hs`;
+
+        li.append(etiqueta, nombre, hora);
         ul.append(li);
     });
     detalle.append(ul);
