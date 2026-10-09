@@ -3,11 +3,11 @@ require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/cursos-mock.php';
 requerirSesion();
 
-// RF-18: el curso llega por la URL (certificado.php?curso=2)
+// El curso llega por la URL (certificado.php?curso=2)
 $idCurso = filter_input(INPUT_GET, 'curso', FILTER_VALIDATE_INT);
 $curso = $idCurso ? buscarCurso($idCurso) : null;
 
-// RN-03: el certificado solo está disponible si el curso se completó en su totalidad
+// El certificado solo está disponible si el curso se completó en su totalidad
 $disponible = $curso !== null && $curso['estado'] === 'finalizado';
 if ($curso === null) {
     http_response_code(404);
