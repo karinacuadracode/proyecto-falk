@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FALK | Clase en curso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body>
+    <!-- Header reutilizado -->
+    <header class="barra-superior">
+        <button type="button" class="boton-icono" id="boton-menu" aria-label="Abrir menú" aria-expanded="false"
+            aria-controls="menu-principal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+        </button>
+        <img src="../pictures/logo-falk.png" alt="FALK" class="logo">
+        <a href="perfil.php" class="boton-icono" aria-label="Mi perfil">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <circle cx="12" cy="7" r="4.5" />
+                <path d="M3 21c0-4.4 4-7 9-7s9 2.6 9 7z" />
+            </svg>
+        </a>
+    </header>
+
+    <!-- Menú lateral reutilizado con rutas -->
+    <nav id="menu-principal" class="menu-lateral" aria-label="Menú principal" hidden>
+        <ul>
+            <li><a href="../pages-back/home.php">Home</a></li>
+            <li><a href="../pages-back/mis-cursos.php" aria-current="page">Mis cursos</a></li>
+            <li><a href="../pages-back/calendario.php">Calendario</a></li>
+            <li><a href="../controllers/logout-controller.php">Cerrar sesión</a></li>
+        </ul>
+    </nav>
+
+    <main class="contenedor-principal" style="padding: 20px; max-width: 800px; margin: 0 auto;">
+        <!-- Botón de retroceso -->
+        <a href="../pages-back/mis-cursos.php"
+            style="color: #004d40; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 20px;">
+            ⬅ Volver a Mis cursos
+        </a>
+
+        <section class="seccion-leccion">
+            <h2 id="titulo-dinamico" style="margin-bottom: 5px;">Programación inicial</h2>
+            <p id="modulo-dinamico" style="color: #666; margin-bottom: 20px;">Módulo 1: Conceptos básicos de algoritmos
+            </p>
+
+            <!-- Reproductor de video simulado -->
+            <div
+                style="width: 100%; aspect-ratio: 16/9; background-color: #1a1a1a; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <svg viewBox="0 0 24 24" width="64" height="64" fill="white" style="cursor: pointer; opacity: 0.8;"
+                    aria-hidden="true">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+            </div>
+
+            <!-- Contenido de la clase -->
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #e9ecef;">
+                <h3 style="margin-bottom: 10px;">Material de lectura</h3>
+                <p id="descripcion-dinamica" style="color: #444; line-height: 1.6; margin-bottom: 20px;">En este video
+                    aprenderemos los
+                    fundamentos de la lógica de programación. Descargá el apunte adjunto antes de avanzar al siguiente
+                    módulo.</p>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button type="button"
+                        style="background-color: transparent; color: #004d40; border: 2px solid #004d40; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;">
+                        📄 Descargar PDF
+                    </button>
+                    <button type="button"
+                        style="background-color: #004d40; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;">
+                        Siguiente lección ➡
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/menu.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Leer el parámetro de la URL
+            const parametros = new URLSearchParams(window.location.search);
+            const cursoID = parametros.get("curso");
+
+            // Elementos a modificar
+            const titulo = document.getElementById("titulo-dinamico");
+            const modulo = document.getElementById("modulo-dinamico");
+            const descripcion = document.getElementById("descripcion-dinamica"); // Capturamos el nuevo párrafo
+
+            // Cambiar el contenido según el parámetro
+            if (cursoID === "bd") {
+                titulo.textContent = "Base de Datos";
+                modulo.textContent = "Módulo 1: Introducción a SQL y modelado relacional";
+                descripcion.textContent = "En este video aprenderemos a estructurar bases de datos y realizar las primeras consultas SQL. Descargá el apunte adjunto antes de avanzar al siguiente módulo.";
+            } else if (cursoID === "web") {
+                titulo.textContent = "Programación Web";
+                modulo.textContent = "Módulo 1: Estructuras HTML y maquetado CSS";
+                descripcion.textContent = "En este video aprenderemos a maquetar una página web desde cero usando HTML5 y CSS3. Descargá el apunte adjunto antes de avanzar al siguiente módulo.";
+            }
+        });
+    </script>
+</body>
+
+</html>
