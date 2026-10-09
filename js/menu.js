@@ -5,7 +5,7 @@ function abrirMenu() {
     menu.hidden = false;
     botonMenu.setAttribute('aria-expanded', 'true');
     botonMenu.setAttribute('aria-label', 'Cerrar menú');
-    menu.querySelector('a').focus(); // accesibilidad: el foco pasa al primer link
+    menu.querySelector('a').focus(); 
 }
 
 function cerrarMenu() {

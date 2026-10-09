@@ -1,4 +1,4 @@
-// RF-18: abre el diálogo de impresión del navegador (desde ahí se puede guardar como PDF)
+// Abre el diálogo de impresión del navegador (desde ahí se puede guardar como PDF)
 const botonImprimir = document.getElementById('boton-imprimir');
 
 if (botonImprimir) {

@@ -3,7 +3,6 @@ const mensaje = document.getElementById('mensaje-error');
 const boton = formulario.querySelector('button');
 
 function mostrarMensaje(texto, esExito = false) {
-    // textContent (nunca innerHTML): si llega un <script>, se muestra como texto y no se ejecuta (evita XSS).
     mensaje.textContent = texto;
     mensaje.classList.toggle('exito', esExito);
 }
@@ -35,14 +34,14 @@ formulario.addEventListener('submit', async (evento) => {
         const datos = await respuesta.json();
 
         if (datos.success) {
-            // RF-09: con la cuenta creada, el usuario va directo al Login para verificar sus credenciales.
+            // Con la cuenta creada, el usuario va directo al Login para verificar sus credenciales.
             // El mensaje de éxito lo muestra login.js. El botón queda deshabilitado (evita un segundo envío).
-            window.location.href = '../index.html?motivo=registro'; // destino fijo (evita open redirect)
+            window.location.href = '../index.html?motivo=registro';
             return;
         }
 
         mostrarMensaje(datos.message);
-        boton.disabled = false; // hubo un error de datos: se puede corregir y reintentar
+        boton.disabled = false; 
     } catch (error) {
         mostrarMensaje('No pudimos conectar con el servidor. Intentá nuevamente.');
         boton.disabled = false;

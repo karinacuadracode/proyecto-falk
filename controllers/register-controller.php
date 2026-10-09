@@ -30,7 +30,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 255) {
     responder(422, false, 'Ingresá un email válido.');
 }
 
-// Política de contraseña (RN-07: mínimo 8 caracteres, al menos una mayúscula, un número y un símbolo).
+// Política de contraseña (Mínimo 8 caracteres, al menos una mayúscula, un número y un símbolo).
 if (mb_strlen($contrasena) < 8 || strlen($contrasena) > 72
     || !preg_match('/[A-Z]/', $contrasena)
     || !preg_match('/[0-9]/', $contrasena)
@@ -38,7 +38,7 @@ if (mb_strlen($contrasena) < 8 || strlen($contrasena) > 72
     responder(422, false, 'La contraseña debe tener al menos 8 caracteres, con una mayúscula, un número y un símbolo.');
 }
 
-// 4. Hash con bcrypt (RNF-03). Nunca guardamos la contraseña en texto plano.
+// 4. Hash con bcrypt. Nunca guardamos la contraseña en texto plano.
 $hash = password_hash($contrasena, PASSWORD_DEFAULT);
 
 // 5. Sentencia preparada: los datos viajan separados del SQL, así no hay SQL injection.
@@ -52,13 +52,13 @@ try {
         ':hash'    => $hash,
     ]);
 } catch (PDOException $e) {
-    // 1062 = clave duplicada (RN-01 / RN-06). El mensaje no dice cuál dato está repetido.
+    // 1062 = clave duplicada. El mensaje no dice cuál dato está repetido.
     if (($e->errorInfo[1] ?? null) === 1062) {
         responder(409, false, 'No pudimos crear la cuenta con esos datos. Probá con otro usuario o email.');
     }
-    error_log('Registro FALK: ' . $e->getMessage()); // el detalle va al log, no a la pantalla
+    error_log('Registro FALK: ' . $e->getMessage());
     responder(500, false, 'Ocurrió un error. Intentá más tarde.');
 }
 
-// 6. RF-09: el registro NO inicia sesión. El usuario va al Login y verifica sus credenciales.
+// 6. El registro NO inicia sesión. El usuario va al Login y verifica sus credenciales.
 responder(201, true, 'Cuenta creada. Ya podés iniciar sesión.', '../index.html');

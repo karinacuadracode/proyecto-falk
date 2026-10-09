@@ -35,7 +35,7 @@ formulario.addEventListener('submit', async (evento) => {
         const datos = await respuesta.json();
 
         if (datos.success) {
-            window.location.href = 'pages-back/home.php'; // destino fijo (evita open redirect)
+            window.location.href = 'pages-back/home.php'; 
         } else {
             mostrarMensaje(datos.message);
             formulario.contrasena.value = '';
