@@ -1,13 +1,37 @@
 <?php
 declare(strict_types=1);
 
-// Cursos de ejemplo hasta que exista la tabla de cursos (RF-15).
-// Cuando esté la base, reemplazar buscarCurso() por una consulta con los cursos del usuario logueado.
-const CURSOS_MOCK = [
-    1 => ['nombre' => 'Programación inicial', 'estado' => 'en_progreso', 'fecha_fin' => null],
-    2 => ['nombre' => 'Diseño web responsive',          'estado' => 'finalizado',  'fecha_fin' => '2026-09-30'],
-];
+// Aseguramos que la clase DB esté disponible
+require_once __DIR__ . '/db.php';
 
-function buscarCurso(int $id): ?array {
-    return CURSOS_MOCK[$id] ?? null;
+// Función para buscar un curso específico (la usa certificado.php)
+function buscarCurso(int $id, int $user_id): ?array {
+    try {
+        $pdo = DB::getConnection();
+        // RN-04: Filtramos por ID del curso Y por el ID del usuario
+        $sql = "SELECT id, nombre, estado, fecha_fin FROM cursos WHERE id = ? AND user_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id, $user_id]);
+        $curso = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $curso ?: null;
+    } catch (PDOException $e) {
+        error_log("Error al buscar curso: " . $e->getMessage());
+        return null;
+    }
 }
+
+function obtenerCursosDeUsuario(int $user_id): array {
+    try {
+        $pdo = DB::getConnection();
+        $sql = "SELECT id, nombre, estado, fecha_fin FROM cursos WHERE user_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$user_id]);
+        
+        return $stmt->fetchAll(); 
+        
+    } catch (PDOException $e) {
+        return [];
+    }
+}
+?>
