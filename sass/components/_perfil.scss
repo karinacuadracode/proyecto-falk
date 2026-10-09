@@ -1,7 +1,7 @@
 @use "../utilities/variables" as *;
 @use "../utilities/mixins" as *;
 
-// pagina mi perfil (RF-12)
+// pagina mi perfil
 .perfil {
     display: flex;
     max-width: $ancho-contenido;
@@ -36,7 +36,7 @@
     display: flex;
     width: 96px;
     height: 96px;
-    margin-top: -56px; // se monta sobre el banner
+    margin-top: -56px; 
     border: 4px solid $color-tarjeta-curso;
     border-radius: 50%;
     background-color: $color-principal;
@@ -52,7 +52,6 @@
     overflow-wrap: anywhere;
 }
 
-// rol en forma de pildora
 .etiqueta-rol {
     font-size: 0.85rem;
     font-weight: 600;
@@ -98,7 +97,7 @@
     font-weight: 600;
 }
 
-// boton volver: pildora con borde, se rellena al pasar el mouse
+// boton volver
 .boton-volver {
     display: inline-flex;
     font-weight: 700;
