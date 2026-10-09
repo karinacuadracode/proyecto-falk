@@ -1,7 +1,7 @@
 @use "../utilities/variables" as *;
 @use "../utilities/mixins" as *;
 
-// pagina certificado (RF-18)
+// Pagina certificado
 .certificado-seccion {
     display: flex;
     max-width: $ancho-contenido;
@@ -9,7 +9,7 @@
     @include estilos-caja(8px 16px 40px, 0 auto, 24px);
 }
 
-// el certificado: tarjeta tipo diploma
+// Certificado: tarjeta tipo diploma
 .certificado {
     display: flex;
     width: 100%;
@@ -79,7 +79,7 @@
     @include foco-visible;
 }
 
-// RN-03: aviso cuando el curso no esta finalizado
+// Aviso cuando el curso no esta finalizado
 .certificado-aviso {
     width: 100%;
     text-align: center;
