@@ -798,4 +798,13 @@ form button:active {
   }
 }
 
+.oculto {
+    display: none !important;
+}
+.boton-desplegable {
+    transition: transform 0.3s ease;
+}
+.boton-desplegable.girado {
+    transform: rotate(180deg);
+}
 /*# sourceMappingURL=styles.css.map */
