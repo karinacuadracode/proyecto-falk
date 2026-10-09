@@ -78,17 +78,15 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
                         $contador++;
 
                         $clasesCss = "tarjeta-curso";
-                        $estiloOculto = "";
                         if ($contador > 2) {
                             $clasesCss .= " curso-extra oculto";
-                            $estiloOculto = 'style="display: none;"';
                         }
 
                         $estadoCss = ($curso['estado'] === 'finalizado') ? 'finalizado' : 'en-progreso';
                         $estadoTexto = ($curso['estado'] === 'finalizado') ? 'Finalizado' : 'En progreso';
                 ?>
 
-                        <article class="<?php echo $clasesCss; ?>" <?php echo $estiloOculto; ?>>
+                        <article class="<?php echo $clasesCss; ?>">
                             <h3><?php echo htmlspecialchars($curso['nombre']); ?></h3>
                             <p class="estado-curso <?php echo $estadoCss; ?>"><?php echo $estadoTexto; ?></p>
                         </article>
