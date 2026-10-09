@@ -64,13 +64,13 @@ requerirSesion();
 
             <div class="contenedor-cursos">
                 <article class="tarjeta-curso">
-                    <h3>Nombre del curso</h3>
-                    <p>En progreso</p>
+                    <h3>Programación inicial</h3>
+                    <p class="estado-curso en-progreso">En progreso</p>
                 </article>
 
                 <article class="tarjeta-curso">
-                    <h3>Nombre del curso</h3>
-                    <p>Finalizado</p>
+                    <h3>Diseño web responsive</h3>
+                    <p class="estado-curso finalizado">Finalizado</p>
                 </article>
 
                 <button type="button" class="boton-icono" aria-label="Ver más cursos">
