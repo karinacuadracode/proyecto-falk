@@ -72,7 +72,7 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
                 $contador = 0;
 
                 if (empty($cursos_del_usuario)) {
-                    echo "<p style='grid-column: 1 / -1; text-align: center; color: #666; margin-top: 20px;'>No estás inscripto en ningún curso todavía.</p>";
+                    echo '<p class="sin-cursos">No estás inscripto en ningún curso todavía.</p>';
                 } else {
                     foreach ($cursos_del_usuario as $curso) {
                         $contador++;
@@ -98,7 +98,7 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
 
                 <?php if (!empty($cursos_del_usuario) && count($cursos_del_usuario) > 2): ?>
                     <!-- Botón desplegable dinámico -->
-                    <button type="button" id="btn-mostrar-mas" class="boton-icono boton-desplegable" aria-label="Ver más cursos"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <button type="button" id="btn-mostrar-mas" class="boton-icono boton-desplegable" aria-label="Ver más cursos" aria-expanded="false"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
