@@ -17,14 +17,21 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
 </head>
 <body>
     <header class="barra-superior">
-        <button type="button" class="boton-icono" id="boton-menu" aria-label="Abrir menú">
-            <!-- (Icono SVG Menú) -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <button type="button" class="boton-icono" id="boton-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
         </button>
-        <img src="../pictures/logo-falk.png" alt="FALK" class="logo">
+
+        <a href="home.php"><img src="../pictures/logo-falk.png" alt="FALK - Volver al inicio" class="logo"></a>
+
         <a href="perfil.php" class="boton-icono" aria-label="Mi perfil">
-            <!-- (Icono SVG Perfil) -->
-            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="7" r="4.5"/><path d="M3 21c0-4.4 4-7 9-7s9 2.6 9 7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <circle cx="12" cy="7" r="4.5"/>
+                <path d="M3 21c0-4.4 4-7 9-7s9 2.6 9 7z"/>
+            </svg>
         </a>
     </header>
 
@@ -44,7 +51,7 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
                 <?php
                 $contador = 0;
                 if (empty($cursos_del_usuario)) {
-                    echo "<p>No estás inscripto en ningún curso todavía.</p>";
+                    echo '<p class="sin-cursos">No estás inscripto en ningún curso todavía.</p>';
                 } else {
                     foreach ($cursos_del_usuario as $curso) {
                         $contador++;
@@ -76,9 +83,8 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
                 ?>
 
                 <?php if (!empty($cursos_del_usuario) && count($cursos_del_usuario) > 2): ?>
-                <!-- Sacamos el transition inline y agregamos clase boton-desplegable -->
-                <button type="button" id="btn-mostrar-mas" class="boton-icono boton-desplegable" aria-label="Ver más cursos">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <button type="button" id="btn-mostrar-mas" class="boton-icono boton-desplegable" aria-label="Ver más cursos" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <?php endif; ?>
             </div>

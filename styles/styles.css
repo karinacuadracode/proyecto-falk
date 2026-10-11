@@ -341,6 +341,22 @@ form button:active {
   height: auto;
 }
 
+.oculto {
+  display: none !important;
+}
+
+.boton-desplegable {
+  transition: transform 0.3s ease;
+}
+.boton-desplegable.girado {
+  transform: rotate(180deg);
+}
+
+.sin-cursos {
+  text-align: center;
+  margin-top: 8px;
+}
+
 .calendario-mes {
   background-color: #D4E4DE;
   border-radius: 16px;
@@ -798,13 +814,4 @@ form button:active {
   }
 }
 
-.oculto {
-    display: none !important;
-}
-.boton-desplegable {
-    transition: transform 0.3s ease;
-}
-.boton-desplegable.girado {
-    transform: rotate(180deg);
-}
 /*# sourceMappingURL=styles.css.map */
