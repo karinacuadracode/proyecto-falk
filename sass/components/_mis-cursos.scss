@@ -79,3 +79,21 @@
         height: auto;
     }
 }
+
+// cursos extra: ocultos hasta tocar "Ver mas cursos"
+.oculto {
+    display: none !important;
+}
+
+.boton-desplegable {
+    transition: transform 0.3s ease;
+    &.girado {
+        transform: rotate(180deg);
+    }
+}
+
+// mensaje cuando el usuario no tiene cursos
+.sin-cursos {
+    text-align: center;
+    margin-top: 8px;
+}
