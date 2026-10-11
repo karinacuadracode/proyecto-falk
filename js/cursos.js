@@ -18,8 +18,12 @@ document.addEventListener("DOMContentLoaded", function() {
             // Giramos la flecha agregando o quitando clase
             if (estanOcultos) {
                 btnMostrarMas.classList.add("girado");
+                btnMostrarMas.setAttribute("aria-expanded", "true");
+                btnMostrarMas.setAttribute("aria-label", "Ver menos cursos");
             } else {
                 btnMostrarMas.classList.remove("girado");
+                btnMostrarMas.setAttribute("aria-expanded", "false");
+                btnMostrarMas.setAttribute("aria-label", "Ver más cursos");
             }
         });
     }
