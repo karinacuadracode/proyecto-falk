@@ -58,3 +58,27 @@ function requerirSesion(): void {
     // Hubo actividad: se reinicia el contador.
     $_SESSION['ultima_actividad'] = $ahora;
 }
+
+// RN-08: solo un usuario con perfil administrador puede entrar a las páginas de administración.
+// El rol se vuelve a leer de la base (y no solo de la sesión) por si cambió después del login.
+function requerirAdmin(): void {
+    requerirSesion();
+
+    require_once __DIR__ . '/db.php';
+    $stmt = DB::getConnection()->prepare('SELECT Role FROM users WHERE ID = :id LIMIT 1');
+    $stmt->execute([':id' => $_SESSION['user_id']]);
+    $rol = $stmt->fetchColumn();
+
+    if ($rol !== 'admin') {
+        // Un usuario común que intenta entrar vuelve a su Home.
+        header('Location: home.php');
+        exit;
+    }
+
+    $_SESSION['role'] = $rol;
+}
+
+// Para mostrar u ocultar opciones de administración en el menú.
+function esAdmin(): bool {
+    return ($_SESSION['role'] ?? '') === 'admin';
+}

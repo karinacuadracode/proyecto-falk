@@ -54,6 +54,9 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
             <li><a href="home.php" aria-current="page">Home</a></li>
             <li><a href="mis-cursos.php">Mis cursos</a></li>
             <li><a href="calendario.php">Calendario</a></li>
+            <?php if (esAdmin()): ?>
+                <li><a href="admin-logs.php">Listado de accesos</a></li>
+            <?php endif; ?>
             <li><a href="../controllers/logout-controller.php">Cerrar sesión</a></li>
         </ul>
     </nav>

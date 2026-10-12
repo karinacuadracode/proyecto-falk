@@ -1,0 +1,95 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+// pagina listado de accesos (RF-23, solo administradores)
+.accesos {
+    display: flex;
+    max-width: 760px;
+    @include flexbox (column, null, center);
+    @include estilos-caja(8px 16px 40px, 0 auto, 24px);
+}
+
+.accesos-titulo {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.accesos-mensaje {
+    font-weight: 600;
+}
+
+.accesos-error {
+    color: $color-error;
+}
+
+// en celular la tabla se desplaza de costado dentro de su caja
+.tabla-accesos-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    background-color: $color-tarjeta-curso;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(23, 81, 125, 0.12);
+    @include foco-visible;
+}
+
+.tabla-accesos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: left;
+    th,
+    td {
+        padding: 12px 16px;
+        white-space: nowrap;
+    }
+    thead {
+        background-color: $color-contenedor-cursos;
+    }
+    th {
+        font-weight: 700;
+    }
+    tbody tr + tr {
+        border-top: 1px solid $color-contenedor-cursos;
+    }
+}
+
+.acceso-usuario {
+    font-weight: 600;
+}
+
+// etiqueta del resultado: texto + color (no depende solo del color)
+.estado-acceso {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $color-boton1-texto;
+    border-radius: $radio-pildora;
+    @include estilos-caja(4px 12px, null, null);
+    &.exitoso {
+        background-color: $color-evento-entrega;
+    }
+    &.fallido {
+        background-color: $color-error;
+    }
+}
+
+.paginacion {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    @include flexbox (row, center, center);
+    @include estilos-caja(null, null, 16px);
+}
+
+.paginacion-estado {
+    font-weight: 600;
+}
+
+.paginacion-enlace {
+    font-weight: 700;
+    color: $color-link;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
