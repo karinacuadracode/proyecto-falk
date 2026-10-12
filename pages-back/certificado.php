@@ -55,6 +55,9 @@ function e(string $t): string { return htmlspecialchars($t, ENT_QUOTES, 'UTF-8')
             <li><a href="home.php">Home</a></li>
             <li><a href="mis-cursos.php">Mis cursos</a></li>
             <li><a href="calendario.php">Calendario</a></li>
+            <?php if (esAdmin()): ?>
+                <li><a href="admin-logs.php">Listado de accesos</a></li>
+            <?php endif; ?>
             <li><a href="../controllers/logout-controller.php">Cerrar sesión</a></li>
         </ul>
     </nav>
