@@ -80,6 +80,7 @@ function formatearFecha(?string $fecha): string {
             <li><a href="mis-cursos.php">Mis cursos</a></li>
             <li><a href="calendario.php">Calendario</a></li>
             <li><a href="admin-logs.php" aria-current="page">Listado de accesos</a></li>
+            <li><a href="admin-usuarios.php">Gestión de usuarios</a></li>
             <li><a href="../controllers/logout-controller.php">Cerrar sesión</a></li>
         </ul>
     </nav>
@@ -108,14 +109,16 @@ function formatearFecha(?string $fecha): string {
                         </thead>
                         <tbody>
                             <?php foreach ($accesos as $acceso):
-                                $exitoso = $acceso['Result'] === 'EXITOSO'; ?>
+                                $exitoso = $acceso['Result'] === 'EXITOSO';
+                                // RF-25: los intentos con la cuenta bloqueada o desactivada también son fallidos.
+                                $textoResultado = ['EXITOSO' => 'Exitoso', 'BLOQUEADA' => 'Cuenta bloqueada', 'INACTIVA' => 'Cuenta inactiva'][$acceso['Result']] ?? 'Fallido'; ?>
                                 <tr>
                                     <td><?= e(formatearFecha($acceso['Attempt_Time'])) ?></td>
                                     <td><?= $acceso['User_ID'] !== null ? (int) $acceso['User_ID'] : '-' ?></td>
                                     <td class="acceso-usuario"><?= $acceso['User_Email'] !== '' ? e($acceso['User_Email']) : '(vacío)' ?></td>
                                     <td>
                                         <span class="estado-acceso <?= $exitoso ? 'exitoso' : 'fallido' ?>">
-                                            <?= $exitoso ? 'Exitoso' : 'Fallido' ?>
+                                            <?= $textoResultado ?>
                                         </span>
                                     </td>
                                     <td><?= e($acceso['IP_Address'] ?: '-') ?></td>

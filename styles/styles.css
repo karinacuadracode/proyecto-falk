@@ -853,6 +853,65 @@ form button:active {
   text-decoration: underline;
 }
 
+.estado-acceso.estado-cuenta-activo {
+  background-color: #1E6B45;
+}
+.estado-acceso.estado-cuenta-bloqueado {
+  background-color: #8C1D18;
+}
+.estado-acceso.estado-cuenta-inactivo {
+  background-color: #4B5563;
+}
+
+.accesos-exito {
+  color: #1E6B45;
+}
+
+.usuarios-ayuda {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.form-accion-usuario {
+  margin: 0;
+}
+
+.accesos-ancho {
+  max-width: 960px;
+}
+
+.boton-tabla {
+  position: relative;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background-color: #368F8A;
+  cursor: pointer;
+  padding: 6px 14px;
+  font-family: inherit;
+  border: none;
+  border-radius: 999px;
+  transition: transform 0.15s ease;
+}
+.boton-tabla:focus-visible {
+  outline: 3px solid #17517D;
+  outline-offset: 3px;
+}
+.boton-tabla:hover {
+  transform: scale(1.03);
+}
+.boton-tabla:active {
+  transform: translateY(2px);
+}
+
+.boton-tabla-secundario {
+  color: #17517D;
+  background-color: transparent;
+  border: 2px solid #17517D;
+  padding: 4px 12px;
+}
+
 .footer {
   text-align: center;
   width: 100%;
