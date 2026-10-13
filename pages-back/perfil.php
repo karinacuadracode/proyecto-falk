@@ -4,7 +4,7 @@ require_once __DIR__ . '/../config/db.php';
 requerirSesion();
 
 // RF-12: datos de la cuenta del usuario logueado
-$stmt = DB::getConnection()->prepare('SELECT Username, Email, Role FROM users WHERE ID = :id LIMIT 1');
+$stmt = DB::getConnection()->prepare('SELECT Username, Email, Role, Fecha_Nacimiento FROM users WHERE ID = :id LIMIT 1');
 $stmt->execute([':id' => $_SESSION['user_id']]);
 $usuario = $stmt->fetch();
 
@@ -101,6 +101,20 @@ function e(string $t): string { return htmlspecialchars($t, ENT_QUOTES, 'UTF-8')
                                 <dd><?= e(ucfirst($usuario['Role'])) ?></dd>
                             </div>
                         </div>
+                        <?php if (!empty($usuario['Fecha_Nacimiento'])): // RF-26: solo si la cargó al registrarse ?>
+                            <div class="dato-perfil">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="3" y="5" width="18" height="16" rx="2"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                    <line x1="8" y1="3" x2="8" y2="7"/>
+                                    <line x1="16" y1="3" x2="16" y2="7"/>
+                                </svg>
+                                <div>
+                                    <dt>Fecha de nacimiento</dt>
+                                    <dd><?= e(date('d/m/Y', strtotime($usuario['Fecha_Nacimiento']))) ?></dd>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </dl>
                 </article>
             <?php else: ?>

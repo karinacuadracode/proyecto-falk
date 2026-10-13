@@ -30,7 +30,8 @@ CREATE TABLE `users` (
   `Password` varchar(255) NOT NULL,
   `Role` enum('usuario','admin') NOT NULL DEFAULT 'usuario',
   `Estado` enum('activo','bloqueado','inactivo') NOT NULL DEFAULT 'activo', -- RF-25
-  `Intentos_Fallidos` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 -- RF-25: se bloquea al llegar al máximo
+  `Intentos_Fallidos` tinyint(3) UNSIGNED NOT NULL DEFAULT 0, -- RF-25: se bloquea al llegar al máximo
+  `Fecha_Nacimiento` date DEFAULT NULL -- RF-26: opcional
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcado de datos para la tabla `users`
