@@ -62,3 +62,40 @@
 .boton-tabla-peligro {
     background-color: $color-error;
 }
+
+// RF-28: buscador por email
+.buscador-usuarios {
+    width: 100%;
+    max-width: 520px;
+    gap: 8px;
+    input {
+        flex: 1;
+        min-width: 0;
+        font-size: 1rem;
+        text-align: left;
+        @include pildora(12px 20px);
+    }
+    button {
+        font-size: 1rem;
+        @include pildora(12px 24px);
+    }
+}
+
+.buscador-etiqueta {
+    font-weight: 600;
+    text-align: center;
+}
+
+.buscador-fila {
+    display: flex;
+    @include flexbox (row, null, stretch);
+    @include estilos-caja(null, null, 8px);
+}
+
+.buscador-resultado {
+    text-align: center;
+    a {
+        font-weight: 700;
+        color: $color-link;
+    }
+}
