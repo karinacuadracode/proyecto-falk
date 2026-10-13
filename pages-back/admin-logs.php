@@ -21,7 +21,7 @@ try {
     $totalPaginas = max(1, (int) ceil($total / ACCESOS_POR_PAGINA));
     $pagina = min($pagina, $totalPaginas);
 
-    $stmt = $db->prepare('SELECT User_Email, Attempt_Time, Result, IP_Address
+    $stmt = $db->prepare('SELECT User_ID, User_Email, Attempt_Time, Result, IP_Address
                           FROM audit_log
                           ORDER BY Attempt_Time DESC, Log_ID DESC
                           LIMIT :limite OFFSET :desde');
@@ -100,6 +100,7 @@ function formatearFecha(?string $fecha): string {
                         <thead>
                             <tr>
                                 <th scope="col">Fecha y hora</th>
+                                <th scope="col">ID usuario</th>
                                 <th scope="col">Usuario</th>
                                 <th scope="col">Resultado</th>
                                 <th scope="col">IP</th>
@@ -110,7 +111,8 @@ function formatearFecha(?string $fecha): string {
                                 $exitoso = $acceso['Result'] === 'EXITOSO'; ?>
                                 <tr>
                                     <td><?= e(formatearFecha($acceso['Attempt_Time'])) ?></td>
-                                    <td class="acceso-usuario"><?= e($acceso['User_Email']) ?></td>
+                                    <td><?= $acceso['User_ID'] !== null ? (int) $acceso['User_ID'] : '-' ?></td>
+                                    <td class="acceso-usuario"><?= $acceso['User_Email'] !== '' ? e($acceso['User_Email']) : '(vacío)' ?></td>
                                     <td>
                                         <span class="estado-acceso <?= $exitoso ? 'exitoso' : 'fallido' ?>">
                                             <?= $exitoso ? 'Exitoso' : 'Fallido' ?>
