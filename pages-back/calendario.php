@@ -51,6 +51,7 @@ requerirSesion();
             <li><a href="calendario.php" aria-current="page">Calendario</a></li>
             <?php if (esAdmin()): ?>
                 <li><a href="admin-logs.php">Listado de accesos</a></li>
+                <li><a href="admin-usuarios.php">Gestión de usuarios</a></li>
             <?php endif; ?>
             <li><a href="../controllers/logout-controller.php">Cerrar sesión</a></li>
         </ul>

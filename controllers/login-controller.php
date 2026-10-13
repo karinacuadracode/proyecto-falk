@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/session.php';
+require_once __DIR__ . '/../config/usuarios.php';
 header('Content-Type: application/json; charset=utf-8');
 
 function responder(int $codigo, bool $ok, string $mensaje, ?string $redireccion = null): void {
@@ -42,7 +43,7 @@ try {
     }
 
     // 3. Sentencia preparada (evita SQL injection).
-    $stmt = $db->prepare('SELECT ID, Username, Password, Role FROM users WHERE Username = :u OR Email = :e LIMIT 1');
+    $stmt = $db->prepare('SELECT ID, Username, Password, Role, Estado FROM users WHERE Username = :u OR Email = :e LIMIT 1');
     $stmt->execute([':u' => $identificador, ':e' => strtolower($identificador)]);
     $usuario = $stmt->fetch();
 
@@ -56,9 +57,24 @@ try {
     $userId = $usuario ? (int) $usuario['ID'] : null;
 
     if (!$usuario || !$valida) {
+        if ($usuario) {
+            registrarContrasenaIncorrecta($userId); // RF-25: a los 5 seguidos la cuenta se bloquea
+        }
         registrarIntento($db, $identificador, 'FALLIDO', $userId);
         responder(401, false, 'Usuario o contraseña incorrectos.'); // mensaje genérico
     }
+
+    // RF-25: una cuenta bloqueada o desactivada no puede entrar aunque la contraseña sea correcta.
+    // Este aviso solo lo ve quien conoce la contraseña, así no revela qué cuentas existen.
+    if ($usuario['Estado'] !== 'activo') {
+        $bloqueada = $usuario['Estado'] === 'bloqueado';
+        registrarIntento($db, $identificador, $bloqueada ? 'BLOQUEADA' : 'INACTIVA', $userId);
+        responder(403, false, $bloqueada
+            ? 'Tu cuenta está bloqueada por intentos fallidos. Pedile al administrador que la desbloquee.'
+            : 'Tu cuenta está desactivada. Pedile al administrador que la active.');
+    }
+
+    reiniciarIntentosFallidos($userId);
 
     // RN-09: se registra ANTES de crear la sesión; si el registro falla, no se inicia sesión.
     registrarIntento($db, $identificador, 'EXITOSO', $userId);
