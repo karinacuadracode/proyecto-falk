@@ -38,6 +38,18 @@ if (mb_strlen($contrasena) < 8 || strlen($contrasena) > 72
     responder(422, false, 'La contraseña debe tener al menos 8 caracteres, con una mayúscula, un número y un símbolo.');
 }
 
+// RF-26: fecha de nacimiento opcional. Si viene, tiene que ser una fecha real, no futura y desde 1900.
+$fechaNacimiento = trim($_POST['fecha_nacimiento'] ?? '');
+if ($fechaNacimiento === '') {
+    $fechaNacimiento = null;
+} else {
+    $fecha = DateTimeImmutable::createFromFormat('!Y-m-d', $fechaNacimiento);
+    if (!$fecha || $fecha->format('Y-m-d') !== $fechaNacimiento
+        || $fechaNacimiento < '1900-01-01' || $fecha > new DateTimeImmutable('today')) {
+        responder(422, false, 'La fecha de nacimiento no es válida (no puede ser posterior a hoy). Si no querés cargarla, dejala vacía.');
+    }
+}
+
 // 4. Hash con bcrypt. Nunca guardamos la contraseña en texto plano.
 $hash = password_hash($contrasena, PASSWORD_DEFAULT);
 
@@ -45,11 +57,12 @@ $hash = password_hash($contrasena, PASSWORD_DEFAULT);
 //    No insertamos Role: la base pone 'usuario' por defecto.
 try {
     $db = DB::getConnection();
-    $stmt = $db->prepare('INSERT INTO users (Username, Email, Password) VALUES (:usuario, :email, :hash)');
+    $stmt = $db->prepare('INSERT INTO users (Username, Email, Password, Fecha_Nacimiento) VALUES (:usuario, :email, :hash, :fecha)');
     $stmt->execute([
         ':usuario' => $usuario,
         ':email'   => $email,
         ':hash'    => $hash,
+        ':fecha'   => $fechaNacimiento,
     ]);
 } catch (PDOException $e) {
     // 1062 = clave duplicada. El mensaje no dice cuál dato está repetido.
