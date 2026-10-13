@@ -56,10 +56,17 @@ function requerirSesion(): void {
     }
 
     // RF-25: si el administrador bloqueó o desactivó la cuenta, la sesión se cierra en el próximo clic.
+    // Si no se puede consultar la base, no se deja pasar (mejor un aviso que entrar sin verificar).
     require_once __DIR__ . '/db.php';
-    $stmt = DB::getConnection()->prepare('SELECT Estado FROM users WHERE ID = :id LIMIT 1');
-    $stmt->execute([':id' => $_SESSION['user_id']]);
-    if ($stmt->fetchColumn() !== 'activo') {
+    try {
+        $stmt = DB::getConnection()->prepare('SELECT Estado FROM users WHERE ID = :id LIMIT 1');
+        $stmt->execute([':id' => $_SESSION['user_id']]);
+        $estado = $stmt->fetchColumn();
+    } catch (PDOException $e) {
+        error_log('Sesión FALK: ' . $e->getMessage());
+        errorBaseDeDatos();
+    }
+    if ($estado !== 'activo') {
         cerrarSesion();
         header('Location: ../index.html?motivo=cuenta');
         exit;
@@ -75,9 +82,14 @@ function requerirAdmin(): void {
     requerirSesion();
 
     require_once __DIR__ . '/db.php';
-    $stmt = DB::getConnection()->prepare('SELECT Role FROM users WHERE ID = :id LIMIT 1');
-    $stmt->execute([':id' => $_SESSION['user_id']]);
-    $rol = $stmt->fetchColumn();
+    try {
+        $stmt = DB::getConnection()->prepare('SELECT Role FROM users WHERE ID = :id LIMIT 1');
+        $stmt->execute([':id' => $_SESSION['user_id']]);
+        $rol = $stmt->fetchColumn();
+    } catch (PDOException $e) {
+        error_log('Permisos FALK: ' . $e->getMessage());
+        errorBaseDeDatos();
+    }
 
     if ($rol !== 'admin') {
         // Un usuario común que intenta entrar vuelve a su Home.
