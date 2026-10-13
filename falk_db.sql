@@ -58,7 +58,8 @@ INSERT INTO `cursos` (`id`, `user_id`, `nombre`, `estado`, `fecha_fin`) VALUES
 -- Índices para tablas volcadas
 
 ALTER TABLE `audit_log`
-  ADD PRIMARY KEY (`Log_ID`);
+  ADD PRIMARY KEY (`Log_ID`),
+  ADD KEY `Attempt_Time` (`Attempt_Time`); -- RF-23: el listado se ordena por fecha
 
 ALTER TABLE `cursos`
   ADD PRIMARY KEY (`id`),
