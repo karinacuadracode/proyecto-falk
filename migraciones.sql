@@ -16,3 +16,7 @@ ALTER TABLE `audit_log`
 
 ALTER TABLE `audit_log`
   ADD CONSTRAINT `audit_log_ibfk_1` FOREIGN KEY IF NOT EXISTS (`User_ID`) REFERENCES `users` (`ID`) ON DELETE SET NULL;
+
+-- RF-26: fecha de nacimiento opcional
+ALTER TABLE `users`
+  ADD COLUMN IF NOT EXISTS `Fecha_Nacimiento` date DEFAULT NULL;

@@ -43,6 +43,11 @@
                    aria-describedby="ayuda-contrasena">
             <p id="ayuda-contrasena" class="ayuda">Mínimo 8 caracteres, con una mayúscula, un número y un símbolo.</p>
 
+            <!-- RF-26: dato opcional. El campo de fecha no muestra placeholder, por eso la etiqueta es visible. -->
+            <label for="fecha-nacimiento" class="etiqueta-campo">Fecha de nacimiento (opcional)</label>
+            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento"
+                   autocomplete="bday" min="1900-01-01">
+
             <p id="mensaje-error" role="alert" aria-live="polite"></p>
 
             <button type="submit">Registrate</button>
