@@ -25,6 +25,13 @@
     text-align: center;
 }
 
+// RF-27: los botones de estado y eliminar van uno al lado del otro
+.acciones-usuario {
+    display: flex;
+    @include flexbox (row, null, center);
+    @include estilos-caja(null, null, 8px);
+}
+
 .form-accion-usuario {
     margin: 0;
 }
@@ -50,4 +57,8 @@
     background-color: transparent;
     border: 2px solid $color-texto-general;
     @include estilos-caja(4px 12px, null, null);
+}
+
+.boton-tabla-peligro {
+    background-color: $color-error;
 }
