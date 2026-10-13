@@ -11,6 +11,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `audit_log`
 CREATE TABLE `audit_log` (
   `Log_ID` int(11) NOT NULL,
+  `User_ID` int(11) DEFAULT NULL, -- RF-24: NULL si lo ingresado no corresponde a ningún usuario
   `User_Email` varchar(255) NOT NULL,
   `Attempt_Time` datetime DEFAULT current_timestamp(),
   `Result` varchar(50) NOT NULL,
@@ -59,7 +60,8 @@ INSERT INTO `cursos` (`id`, `user_id`, `nombre`, `estado`, `fecha_fin`) VALUES
 
 ALTER TABLE `audit_log`
   ADD PRIMARY KEY (`Log_ID`),
-  ADD KEY `Attempt_Time` (`Attempt_Time`); -- RF-23: el listado se ordena por fecha
+  ADD KEY `Attempt_Time` (`Attempt_Time`), -- RF-23: el listado se ordena por fecha
+  ADD KEY `User_ID` (`User_ID`);
 
 ALTER TABLE `cursos`
   ADD PRIMARY KEY (`id`),
@@ -86,6 +88,9 @@ ALTER TABLE `users`
 -- --------------------------------------------------------
 
 -- Restricciones para tablas volcadas
+
+ALTER TABLE `audit_log`
+  ADD CONSTRAINT `audit_log_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`ID`) ON DELETE SET NULL;
 
 ALTER TABLE `cursos`
   ADD CONSTRAINT `cursos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
