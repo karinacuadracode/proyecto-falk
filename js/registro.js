@@ -1,6 +1,11 @@
 const formulario = document.getElementById('form-registro');
 const mensaje = document.getElementById('mensaje-error');
 const boton = formulario.querySelector('button');
+const fechaNacimiento = document.getElementById('fecha-nacimiento');
+
+// RF-26: la fecha de nacimiento no puede ser futura (el calendario no deja elegir después de hoy).
+const hoy = new Date();
+fechaNacimiento.max = new Date(hoy.getTime() - hoy.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 
 function mostrarMensaje(texto, esExito = false) {
     mensaje.textContent = texto;
@@ -13,7 +18,9 @@ formulario.addEventListener('submit', async (evento) => {
 
     // Validación rápida para el usuario. NO es seguridad: el PHP vuelve a validar todo.
     if (!formulario.checkValidity()) {
-        mostrarMensaje('Revisá los campos: usuario de 3 a 30 caracteres, email válido y contraseña de al menos 8.');
+        mostrarMensaje(fechaNacimiento.validity.valid
+            ? 'Revisá los campos: usuario de 3 a 30 caracteres, email válido y contraseña de al menos 8.'
+            : 'La fecha de nacimiento no es válida (no puede ser posterior a hoy). Si no querés cargarla, dejala vacía.');
         return;
     }
 
