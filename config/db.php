@@ -21,11 +21,32 @@ class DB {
             try {
                 self::$instance = new PDO($dsn, $user, $pass, $options);
             } catch (PDOException $e) {
-                http_response_code(500);
-                echo json_encode(['success' => false, 'message' => 'Error de conexión a la base de datos']);
-                exit;
+                error_log('Conexión FALK: ' . $e->getMessage());
+                errorBaseDeDatos();
             }
         }
         return self::$instance;
     }
+}
+
+// Si la base no responde: los controladores contestan JSON (los lee el JS) y las páginas muestran un aviso.
+// El detalle del error queda en el log de PHP, nunca en pantalla.
+function errorBaseDeDatos(): never {
+    http_response_code(503);
+    if (str_contains($_SERVER['SCRIPT_NAME'] ?? '', '/controllers/')) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => false, 'message' => 'Ocurrió un error. Intentá más tarde.']);
+    } else {
+        header('Content-Type: text/html; charset=utf-8');
+        echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
+           . '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+           . '<title>FALK | Servicio no disponible</title>'
+           . '<link rel="stylesheet" href="../styles/styles.css"></head><body>'
+           . '<main class="contenedor-principal"><section class="certificado-seccion">'
+           . '<div class="certificado-aviso" role="alert"><h1>Servicio no disponible</h1>'
+           . '<p>No pudimos conectarnos con la plataforma. Intentá de nuevo en unos minutos.</p></div>'
+           . '<a href="../index.html" class="boton-volver">Volver al inicio</a>'
+           . '</section></main></body></html>';
+    }
+    exit;
 }

@@ -4,9 +4,15 @@ require_once __DIR__ . '/../config/db.php';
 requerirSesion();
 
 // RF-12: datos de la cuenta del usuario logueado
-$stmt = DB::getConnection()->prepare('SELECT Username, Email, Role, Fecha_Nacimiento FROM users WHERE ID = :id LIMIT 1');
-$stmt->execute([':id' => $_SESSION['user_id']]);
-$usuario = $stmt->fetch();
+// Si la consulta falla, $usuario queda en false y la página muestra el aviso de error.
+try {
+    $stmt = DB::getConnection()->prepare('SELECT Username, Email, Role, Fecha_Nacimiento FROM users WHERE ID = :id LIMIT 1');
+    $stmt->execute([':id' => $_SESSION['user_id']]);
+    $usuario = $stmt->fetch();
+} catch (PDOException $e) {
+    error_log('Perfil FALK: ' . $e->getMessage());
+    $usuario = false;
+}
 
 function e(string $t): string { return htmlspecialchars($t, ENT_QUOTES, 'UTF-8'); }
 ?>
