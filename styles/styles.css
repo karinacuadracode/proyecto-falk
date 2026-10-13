@@ -66,13 +66,11 @@ a:focus-visible {
   color: #17517D;
   cursor: pointer;
   padding: 4px;
+  transition: transform 0.15s ease;
 }
 .boton-icono:focus-visible {
   outline: 3px solid #17517D;
   outline-offset: 3px;
-}
-.boton-icono {
-  transition: transform 0.15s ease;
 }
 .boton-icono:hover {
   transform: scale(1.1);
@@ -161,13 +159,11 @@ form button {
   font-family: inherit;
   border: none;
   border-radius: 999px;
+  transition: transform 0.15s ease;
 }
 form button:focus-visible {
   outline: 3px solid #17517D;
   outline-offset: 3px;
-}
-form button {
-  transition: transform 0.15s ease;
 }
 form button:hover {
   transform: scale(1.02);
@@ -239,13 +235,11 @@ form button:active {
   border: 2px solid #368F8A;
   border-radius: 999px;
   padding: 14px;
+  transition: transform 0.15s ease;
 }
 .boton-secundario:focus-visible {
   outline: 3px solid #17517D;
   outline-offset: 3px;
-}
-.boton-secundario {
-  transition: transform 0.15s ease;
 }
 .boton-secundario:hover {
   transform: scale(1.02);
@@ -761,6 +755,104 @@ form button:active {
     font-size: 1.6rem;
   }
 }
+.accesos {
+  display: flex;
+  max-width: 760px;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px 40px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+.accesos-titulo {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.accesos-mensaje {
+  font-weight: 600;
+}
+
+.accesos-error {
+  color: #8C1D18;
+}
+
+.tabla-accesos-contenedor {
+  width: 100%;
+  overflow-x: auto;
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(23, 81, 125, 0.12);
+}
+.tabla-accesos-contenedor:focus-visible {
+  outline: 3px solid #17517D;
+  outline-offset: 3px;
+}
+
+.tabla-accesos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  text-align: left;
+}
+.tabla-accesos th,
+.tabla-accesos td {
+  padding: 12px 16px;
+  white-space: nowrap;
+}
+.tabla-accesos thead {
+  background-color: #D4E4DE;
+}
+.tabla-accesos th {
+  font-weight: 700;
+}
+.tabla-accesos tbody tr + tr {
+  border-top: 1px solid #D4E4DE;
+}
+
+.acceso-usuario {
+  font-weight: 600;
+}
+
+.estado-acceso {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+.estado-acceso.exitoso {
+  background-color: #1E6B45;
+}
+.estado-acceso.fallido {
+  background-color: #8C1D18;
+}
+
+.paginacion {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.paginacion-estado {
+  font-weight: 600;
+}
+
+.paginacion-enlace {
+  font-weight: 700;
+  color: #368F8A;
+  text-decoration: none;
+}
+.paginacion-enlace:hover {
+  text-decoration: underline;
+}
+
 .footer {
   text-align: center;
   width: 100%;
@@ -813,5 +905,3 @@ form button:active {
     justify-content: center;
   }
 }
-
-/*# sourceMappingURL=styles.css.map */
