@@ -1,0 +1,53 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+// pagina gestion de usuarios (RF-25, solo administradores)
+// reutiliza la tabla y las etiquetas del listado de accesos
+.estado-acceso {
+    &.estado-cuenta-activo {
+        background-color: $color-evento-entrega;
+    }
+    &.estado-cuenta-bloqueado {
+        background-color: $color-error;
+    }
+    &.estado-cuenta-inactivo {
+        background-color: $color-evento-otro;
+    }
+}
+
+.accesos-exito {
+    color: $color-evento-entrega;
+}
+
+.usuarios-ayuda {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    text-align: center;
+}
+
+.form-accion-usuario {
+    margin: 0;
+}
+
+.accesos-ancho {
+    max-width: 960px;
+}
+
+.boton-tabla {
+    position: relative; // el texto oculto para lectores de pantalla queda dentro del botón
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: $color-boton1-texto;
+    background-color: $color-boton1-fondo;
+    cursor: pointer;
+    @include pildora(6px 14px);
+    @include foco-visible;
+    @include boton-presionable(2px, 0.15s, 1.03);
+}
+
+.boton-tabla-secundario {
+    color: $color-texto-general;
+    background-color: transparent;
+    border: 2px solid $color-texto-general;
+    @include estilos-caja(4px 12px, null, null);
+}

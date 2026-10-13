@@ -12,6 +12,8 @@ function mostrarMensaje(texto, esExito = false) {
 const motivo = new URLSearchParams(window.location.search).get('motivo');
 if (motivo === 'inactividad') {
     mostrarMensaje('Tu sesión se cerró por inactividad. Volvé a ingresar.');
+} else if (motivo === 'cuenta') {
+    mostrarMensaje('Tu cuenta fue bloqueada o desactivada. Consultá con el administrador.');
 } else if (motivo === 'registro') {
     mostrarMensaje('Cuenta creada. Ya podés iniciar sesión.', true);
 }

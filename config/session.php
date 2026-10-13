@@ -55,6 +55,16 @@ function requerirSesion(): void {
         exit;
     }
 
+    // RF-25: si el administrador bloqueó o desactivó la cuenta, la sesión se cierra en el próximo clic.
+    require_once __DIR__ . '/db.php';
+    $stmt = DB::getConnection()->prepare('SELECT Estado FROM users WHERE ID = :id LIMIT 1');
+    $stmt->execute([':id' => $_SESSION['user_id']]);
+    if ($stmt->fetchColumn() !== 'activo') {
+        cerrarSesion();
+        header('Location: ../index.html?motivo=cuenta');
+        exit;
+    }
+
     // Hubo actividad: se reinicia el contador.
     $_SESSION['ultima_actividad'] = $ahora;
 }
@@ -81,4 +91,16 @@ function requerirAdmin(): void {
 // Para mostrar u ocultar opciones de administración en el menú.
 function esAdmin(): bool {
     return ($_SESSION['role'] ?? '') === 'admin';
+}
+
+// Token CSRF para los formularios que cambian datos (por ejemplo, activar una cuenta).
+function tokenCsrf(): string {
+    if (empty($_SESSION['csrf'])) {
+        $_SESSION['csrf'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf'];
+}
+
+function csrfValido(?string $token): bool {
+    return is_string($token) && !empty($_SESSION['csrf']) && hash_equals($_SESSION['csrf'], $token);
 }
