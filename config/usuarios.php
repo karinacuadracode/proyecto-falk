@@ -42,3 +42,17 @@ function reiniciarIntentosFallidos(int $id): void {
     $stmt = DB::getConnection()->prepare('UPDATE users SET Intentos_Fallidos = 0 WHERE ID = :id AND Intentos_Fallidos > 0');
     $stmt->execute([':id' => $id]);
 }
+
+// RF-27: elimina una cuenta. Sus cursos se borran con ella (ON DELETE CASCADE) y sus
+// registros de acceso se conservan sin ID (ON DELETE SET NULL). Devuelve el nombre o null.
+function eliminarUsuario(int $id): ?string {
+    $db = DB::getConnection();
+    $stmt = $db->prepare('SELECT Username FROM users WHERE ID = :id');
+    $stmt->execute([':id' => $id]);
+    $nombre = $stmt->fetchColumn();
+    if ($nombre === false) {
+        return null;
+    }
+    $db->prepare('DELETE FROM users WHERE ID = :id')->execute([':id' => $id]);
+    return $nombre;
+}

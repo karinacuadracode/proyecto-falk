@@ -880,6 +880,13 @@ form button:active {
   text-align: center;
 }
 
+.acciones-usuario {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
 .form-accion-usuario {
   margin: 0;
 }
@@ -917,6 +924,10 @@ form button:active {
   background-color: transparent;
   border: 2px solid #17517D;
   padding: 4px 12px;
+}
+
+.boton-tabla-peligro {
+  background-color: #8C1D18;
 }
 
 .footer {
