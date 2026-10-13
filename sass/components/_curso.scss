@@ -1,0 +1,66 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+// pagina de un curso (contenido de la leccion)
+.curso-seccion {
+    display: flex;
+    max-width: $ancho-contenido;
+    @include flexbox (column, null, center);
+    @include estilos-caja(8px 16px 40px, 0 auto, 20px);
+}
+
+.curso-titulo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.curso-modulo {
+    font-weight: 600;
+    text-align: center;
+    margin-top: -12px;
+}
+
+// reproductor de ejemplo
+.curso-video {
+    display: flex;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    color: $color-tipo1;
+    background-color: $color-texto-general;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(23, 81, 125, 0.12);
+    @include flexbox (row, center, center);
+    svg {
+        width: 56px;
+        height: 56px;
+        opacity: 0.85;
+    }
+}
+
+.curso-material {
+    width: 100%;
+    background-color: $color-tarjeta-curso;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(23, 81, 125, 0.12);
+    @include estilos-caja(20px, null, null);
+    h2 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    p {
+        line-height: 1.6;
+    }
+}
+
+.curso-certificado {
+    font-weight: 700;
+    text-decoration: none;
+    color: $color-boton1-texto;
+    background-color: $color-boton1-fondo;
+    border-radius: $radio-pildora;
+    @include estilos-caja(12px 28px, null, null);
+    @include boton-presionable(3px, 0.15s, 1.02);
+    @include foco-visible;
+}

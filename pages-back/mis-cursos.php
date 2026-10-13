@@ -71,7 +71,7 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
                         
                         $enlace = ($curso['estado'] === 'finalizado') 
                             ? "certificado.php?curso=" . urlencode($curso['id']) 
-                            : "../pages-front/leccion-mock.html?curso=" . urlencode(strtolower(str_replace(' ', '-', $curso['nombre'])));
+                            : "curso.php?curso=" . urlencode($curso['id']);
                         
                         $textoEnlace = ($curso['estado'] === 'finalizado') ? "Visualizar certificado" : "Continuar desde última lección";
                         ?>
