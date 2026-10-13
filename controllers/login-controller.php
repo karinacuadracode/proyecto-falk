@@ -11,11 +11,13 @@ function responder(int $codigo, bool $ok, string $mensaje, ?string $redireccion 
     exit;
 }
 
-// Registra cada intento en audit_log.
-function registrarIntento(PDO $db, string $identificador, string $resultado): void {
-    $stmt = $db->prepare('INSERT INTO audit_log (User_Email, Result, IP_Address) VALUES (:id, :res, :ip)');
+// RF-24 / RN-09: registra cada intento en audit_log con el ID de usuario (si existe),
+// lo que se escribió, el resultado y la IP. La fecha y hora la pone la base.
+function registrarIntento(PDO $db, string $identificador, string $resultado, ?int $userId = null): void {
+    $stmt = $db->prepare('INSERT INTO audit_log (User_ID, User_Email, Result, IP_Address) VALUES (:uid, :id, :res, :ip)');
     $stmt->execute([
-        ':id'  => substr($identificador, 0, 255),
+        ':uid' => $userId,
+        ':id'  => mb_substr($identificador, 0, 255),
         ':res' => $resultado,
         ':ip'  => $_SERVER['REMOTE_ADDR'] ?? null,
     ]);
@@ -30,12 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $identificador = trim($_POST['usuario'] ?? '');
 $contrasena    = $_POST['contrasena'] ?? '';
 
-if ($identificador === '' || $contrasena === '') {
-    responder(422, false, 'Completá usuario y contraseña.');
-}
-
 try {
     $db = DB::getConnection();
+
+    // RN-09: un intento con campos vacíos también queda registrado.
+    if ($identificador === '' || $contrasena === '') {
+        registrarIntento($db, $identificador, 'FALLIDO');
+        responder(422, false, 'Completá usuario y contraseña.');
+    }
 
     // 3. Sentencia preparada (evita SQL injection).
     $stmt = $db->prepare('SELECT ID, Username, Password, Role FROM users WHERE Username = :u OR Email = :e LIMIT 1');
@@ -48,10 +52,16 @@ try {
     $hash = $usuario['Password'] ?? $hashFalso;
     $valida = password_verify($contrasena, $hash);
 
+    // RF-24: si el usuario existe se guarda su ID aunque la contraseña sea incorrecta.
+    $userId = $usuario ? (int) $usuario['ID'] : null;
+
     if (!$usuario || !$valida) {
-        registrarIntento($db, $identificador, 'FALLIDO');
+        registrarIntento($db, $identificador, 'FALLIDO', $userId);
         responder(401, false, 'Usuario o contraseña incorrectos.'); // mensaje genérico
     }
+
+    // RN-09: se registra ANTES de crear la sesión; si el registro falla, no se inicia sesión.
+    registrarIntento($db, $identificador, 'EXITOSO', $userId);
 
     // 5. Login correcto: sesión segura (RN-04).
     iniciarSesionSegura();
@@ -60,8 +70,6 @@ try {
     $_SESSION['username'] = $usuario['Username'];
     $_SESSION['role'] = $usuario['Role'];
     $_SESSION['ultima_actividad'] = time();
-
-    registrarIntento($db, $identificador, 'EXITOSO');
 } catch (PDOException $e) {
     error_log('Login FALK: ' . $e->getMessage());
     responder(500, false, 'Ocurrió un error. Intentá más tarde.');
