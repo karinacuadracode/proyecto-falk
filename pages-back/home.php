@@ -88,11 +88,18 @@ $cursos_del_usuario = obtenerCursosDeUsuario($usuario_id);
 
                         $estadoCss = ($curso['estado'] === 'finalizado') ? 'finalizado' : 'en-progreso';
                         $estadoTexto = ($curso['estado'] === 'finalizado') ? 'Finalizado' : 'En progreso';
+
+                        // La tarjeta lleva al curso o, si terminó, al certificado (igual que en Mis cursos)
+                        $enlace = ($curso['estado'] === 'finalizado')
+                            ? "certificado.php?curso=" . urlencode((string) $curso['id'])
+                            : "curso.php?curso=" . urlencode((string) $curso['id']);
+                        $textoEnlace = ($curso['estado'] === 'finalizado') ? "Visualizar certificado" : "Continuar desde última lección";
                 ?>
 
                         <article class="<?php echo $clasesCss; ?>">
                             <h3><?php echo htmlspecialchars($curso['nombre']); ?></h3>
                             <p class="estado-curso <?php echo $estadoCss; ?>"><?php echo $estadoTexto; ?></p>
+                            <a href="<?php echo $enlace; ?>" class="accion-curso"><?php echo $textoEnlace; ?> <span aria-hidden="true">→</span></a>
                         </article>
 
                 <?php
