@@ -5,14 +5,29 @@ require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/usuarios.php';
 requerirAdmin(); // RN-08: solo administradores
 
-// RF-25: activar / desbloquear (y desactivar) cuentas de usuario.
+// RF-25: activar / desbloquear (y desactivar) cuentas de usuario. RF-27: eliminar cuentas.
 // Las acciones llegan por POST con token CSRF; después se redirige (así F5 no repite la acción).
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id     = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?: 0;
     $estado = $_POST['estado'] ?? '';
+    $accion = $_POST['accion'] ?? 'estado';
 
     if (!csrfValido($_POST['csrf'] ?? null)) {
         $_SESSION['aviso'] = ['error', 'La acción expiró. Volvé a intentarlo.'];
+    } elseif ($accion === 'eliminar') {
+        if ($id === (int) $_SESSION['user_id']) {
+            $_SESSION['aviso'] = ['error', 'No podés eliminar tu propia cuenta.'];
+        } else {
+            try {
+                $nombre = eliminarUsuario($id);
+                $_SESSION['aviso'] = $nombre !== null
+                    ? ['exito', 'Se eliminó la cuenta de ' . $nombre . '.']
+                    : ['error', 'Esa cuenta ya no existe.'];
+            } catch (PDOException $e) {
+                error_log('Eliminar usuario FALK: ' . $e->getMessage());
+                $_SESSION['aviso'] = ['error', 'No se pudo eliminar la cuenta.'];
+            }
+        }
     } elseif ($id === (int) $_SESSION['user_id'] && $estado !== 'activo') {
         $_SESSION['aviso'] = ['error', 'No podés desactivar tu propia cuenta.'];
     } else {
@@ -106,13 +121,13 @@ $textosEstado = ['activo' => 'Activa', 'bloqueado' => 'Bloqueada', 'inactivo' =>
 
                 <div class="tabla-accesos-contenedor" tabindex="0" role="region" aria-labelledby="titulo-usuarios">
                     <table class="tabla-accesos">
-                        <caption class="sr-only">Cuentas de usuario con su estado y la acción disponible.</caption>
+                        <caption class="sr-only">Cuentas de usuario con su estado y las acciones disponibles.</caption>
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Usuario</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Acción</th>
+                                <th scope="col">Acciones</th>
                                 <th scope="col">Intentos fallidos</th>
                                 <th scope="col">Rol</th>
                                 <th scope="col">Email</th>
@@ -130,27 +145,37 @@ $textosEstado = ['activo' => 'Activa', 'bloqueado' => 'Bloqueada', 'inactivo' =>
                                         </span>
                                     </td>
                                     <td>
-                                        <?php if ($u['Estado'] !== 'activo'): ?>
-                                            <form method="post" class="form-accion-usuario">
-                                                <input type="hidden" name="csrf" value="<?= e(tokenCsrf()) ?>">
-                                                <input type="hidden" name="id" value="<?= (int) $u['ID'] ?>">
-                                                <input type="hidden" name="estado" value="activo">
-                                                <button type="submit" class="boton-tabla">
-                                                    <?= $u['Estado'] === 'bloqueado' ? 'Desbloquear' : 'Activar' ?>
-                                                    <span class="sr-only"><?= e($u['Username']) ?></span>
-                                                </button>
-                                            </form>
-                                        <?php elseif (!$esYo): ?>
-                                            <form method="post" class="form-accion-usuario">
-                                                <input type="hidden" name="csrf" value="<?= e(tokenCsrf()) ?>">
-                                                <input type="hidden" name="id" value="<?= (int) $u['ID'] ?>">
-                                                <input type="hidden" name="estado" value="inactivo">
-                                                <button type="submit" class="boton-tabla boton-tabla-secundario">
-                                                    Desactivar <span class="sr-only"><?= e($u['Username']) ?></span>
-                                                </button>
-                                            </form>
-                                        <?php else: ?>
+                                        <?php if ($esYo): ?>
                                             <span class="usuarios-ayuda">Tu cuenta</span>
+                                        <?php else: ?>
+                                            <div class="acciones-usuario">
+                                                <form method="post" class="form-accion-usuario">
+                                                    <input type="hidden" name="csrf" value="<?= e(tokenCsrf()) ?>">
+                                                    <input type="hidden" name="id" value="<?= (int) $u['ID'] ?>">
+                                                    <?php if ($u['Estado'] !== 'activo'): ?>
+                                                        <input type="hidden" name="estado" value="activo">
+                                                        <button type="submit" class="boton-tabla">
+                                                            <?= $u['Estado'] === 'bloqueado' ? 'Desbloquear' : 'Activar' ?>
+                                                            <span class="sr-only"><?= e($u['Username']) ?></span>
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <input type="hidden" name="estado" value="inactivo">
+                                                        <button type="submit" class="boton-tabla boton-tabla-secundario">
+                                                            Desactivar <span class="sr-only"><?= e($u['Username']) ?></span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                </form>
+
+                                                <!-- RF-27: js/admin-usuarios.js pide confirmación antes de enviar -->
+                                                <form method="post" class="form-accion-usuario" data-confirmar="¿Eliminar la cuenta de <?= e($u['Username']) ?>? Se borran también sus cursos. Esta acción no se puede deshacer.">
+                                                    <input type="hidden" name="csrf" value="<?= e(tokenCsrf()) ?>">
+                                                    <input type="hidden" name="id" value="<?= (int) $u['ID'] ?>">
+                                                    <input type="hidden" name="accion" value="eliminar">
+                                                    <button type="submit" class="boton-tabla boton-tabla-peligro">
+                                                        Eliminar <span class="sr-only"><?= e($u['Username']) ?></span>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         <?php endif; ?>
                                     </td>
                                     <td><?= (int) $u['Intentos_Fallidos'] ?></td>
@@ -173,5 +198,6 @@ $textosEstado = ['activo' => 'Activa', 'bloqueado' => 'Bloqueada', 'inactivo' =>
     </main>
 
     <script src="../js/menu.js"></script>
+    <script src="../js/admin-usuarios.js"></script>
 </body>
 </html>
