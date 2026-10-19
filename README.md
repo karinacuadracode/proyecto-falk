@@ -62,10 +62,10 @@ proyecto-falk/
 ├── sass/                   # Arquitectura de estilos SASS (base, components, layout, utilities, main.scss)
 ├── styles/                 # Hoja de estilos CSS compilada (styles.css)
 ├── .htaccess               # Configuración de Apache para forzar HTTPS/TLS
-├── falk_db.sql             # Script completo de base de datos para instalación desde cero
+├── falk_db.sql             # Script completo de base de datos (incluye CREATE DATABASE) para instalación desde cero
 ├── migraciones.sql         # Script incremental (ALTER TABLE) para actualizar bases existentes sin perder datos
 ├── index.html              # Pantalla principal de inicio de sesión (Login)
-└── README.md               # Documentación del sistema
+└── README.md               # Documentación del sistema e instrucciones de ejecución
 
 ```
 
@@ -75,7 +75,7 @@ proyecto-falk/
 
 ### 1. Requisitos previos
 
-* Entorno de servidor local **XAMPP** (con **Apache** y **MySQL / MariaDB** y **PHP 8.0 o superior**).
+* Entorno de servidor local **XAMPP** (con **Apache**, **MySQL / MariaDB** y **PHP 8.0 o superior**).
 * Navegador web moderno (Chrome, Edge, Firefox).
 
 ### 2. Ubicación de los archivos
@@ -97,8 +97,9 @@ C:\xampp\htdocs\proyecto-falk\
 ### 4. Creación e importación de la Base de Datos
 
 1. Abrir el navegador e ingresar a **phpMyAdmin**: `http://localhost/phpmyadmin/`
-2. Crear una nueva base de datos llamada exactamente **`falk_db`** (cotejamiento `utf8mb4_general_ci`).
-3. Seleccionar la base **`falk_db`**, ir a la pestaña **Importar**, elegir el archivo **`falk_db.sql`** ubicado en la raíz del proyecto y hacer clic en **Continuar / Importar**.
+2. Ir directamente a la pestaña **Importar** en el menú superior.
+3. Hacer clic en **Seleccionar archivo**, elegir el archivo **`falk_db.sql`** ubicado en la raíz del proyecto y presionar **Importar / Continuar**.
+* *El script creará y seleccionará automáticamente la base de datos **`falk_db`** (`CREATE DATABASE IF NOT EXISTS` y `USE falk_db`), generando todas las tablas, claves foráneas y datos iniciales.*
 * *Nota sobre actualizaciones:* Si ya se contaba con una versión previa de la base de datos y se desea actualizar su estructura sin perder los datos cargados, importar únicamente el archivo **`migraciones.sql`**.
 
 
@@ -120,14 +121,12 @@ https://localhost/proyecto-falk/
 
 El script `falk_db.sql` incluye cuentas iniciales para probar los distintos roles, estados y reglas de negocio del sistema:
 
-### 1. Perfil Administrador
+### Perfil Administrador:
 
 * **Usuario / Email:** `admin` o `admin@falk.com`
-* **Contraseña:** `FalkAdmin2026!*`
+* **Contraseña:** `FalkAdmin2026!`
 * *Permisos / Datos:* Acceso al panel de administración, visualización del log de auditoría (`admin-logs.php`), gestión/búsqueda de usuarios (`admin-usuarios.php`) y visualización de 4 cursos inscriptos (3 en progreso y 1 finalizado con certificado habilitado).
 
 *(También es posible registrar un nuevo usuario desde el botón **"Crear cuenta"** en la pantalla de inicio de sesión para verificar el flujo completo de alta, validación de contraseñas seguras y campos opcionales).*
-
-```
 
 ```
