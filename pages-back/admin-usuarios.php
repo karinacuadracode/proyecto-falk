@@ -6,6 +6,9 @@ require_once __DIR__ . '/../config/usuarios.php';
 requerirAdmin(); // RN-08: solo administradores
 
 // RF-25: activar / desbloquear (y desactivar) cuentas de usuario. RF-27: eliminar cuentas.
+// RF-28: búsqueda por email. Se conserva después de cada acción para no perder el filtro.
+$busqueda = mb_substr(trim((string) ($_REQUEST['email'] ?? '')), 0, 255);
+
 // Las acciones llegan por POST con token CSRF; después se redirige (así F5 no repite la acción).
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id     = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?: 0;
@@ -42,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    header('Location: admin-usuarios.php');
+    header('Location: admin-usuarios.php' . ($busqueda !== '' ? '?email=' . urlencode($busqueda) : ''));
     exit;
 }
 
@@ -52,7 +55,7 @@ unset($_SESSION['aviso']);
 $usuarios = [];
 $error = false;
 try {
-    $usuarios = listarUsuarios();
+    $usuarios = listarUsuarios($busqueda);
 } catch (PDOException $e) {
     error_log('Gestión de usuarios FALK: ' . $e->getMessage());
     $error = true;
@@ -119,6 +122,27 @@ $textosEstado = ['activo' => 'Activa', 'bloqueado' => 'Bloqueada', 'inactivo' =>
             <?php else: ?>
                 <p class="usuarios-ayuda">Una cuenta se bloquea sola después de <?= MAX_INTENTOS_FALLIDOS ?> contraseñas incorrectas seguidas.</p>
 
+                <!-- RF-28: buscador por email (GET, así la búsqueda queda en la dirección y se puede recargar) -->
+                <form method="get" class="buscador-usuarios" role="search">
+                    <label for="buscar-email" class="buscador-etiqueta">Buscar por email</label>
+                    <div class="buscador-fila">
+                        <input type="search" id="buscar-email" name="email" value="<?= e($busqueda) ?>"
+                               placeholder="Ej.: pepe o @gmail.com" maxlength="255" autocomplete="off">
+                        <button type="submit">Buscar</button>
+                    </div>
+                </form>
+
+                <?php if ($busqueda !== ''): ?>
+                    <p class="buscador-resultado" role="status">
+                        <?= count($usuarios) === 1 ? '1 cuenta encontrada' : count($usuarios) . ' cuentas encontradas' ?>
+                        para «<?= e($busqueda) ?>».
+                        <a href="admin-usuarios.php">Ver todas</a>
+                    </p>
+                <?php endif; ?>
+
+                <?php if (empty($usuarios)): ?>
+                    <p class="accesos-mensaje">No hay cuentas con un email que contenga «<?= e($busqueda) ?>».</p>
+                <?php else: ?>
                 <div class="tabla-accesos-contenedor" tabindex="0" role="region" aria-labelledby="titulo-usuarios">
                     <table class="tabla-accesos">
                         <caption class="sr-only">Cuentas de usuario con su estado y las acciones disponibles.</caption>
@@ -152,6 +176,7 @@ $textosEstado = ['activo' => 'Activa', 'bloqueado' => 'Bloqueada', 'inactivo' =>
                                                 <form method="post" class="form-accion-usuario">
                                                     <input type="hidden" name="csrf" value="<?= e(tokenCsrf()) ?>">
                                                     <input type="hidden" name="id" value="<?= (int) $u['ID'] ?>">
+                                                    <input type="hidden" name="email" value="<?= e($busqueda) ?>">
                                                     <?php if ($u['Estado'] !== 'activo'): ?>
                                                         <input type="hidden" name="estado" value="activo">
                                                         <button type="submit" class="boton-tabla">
@@ -170,6 +195,7 @@ $textosEstado = ['activo' => 'Activa', 'bloqueado' => 'Bloqueada', 'inactivo' =>
                                                 <form method="post" class="form-accion-usuario" data-confirmar="¿Eliminar la cuenta de <?= e($u['Username']) ?>? Se borran también sus cursos. Esta acción no se puede deshacer.">
                                                     <input type="hidden" name="csrf" value="<?= e(tokenCsrf()) ?>">
                                                     <input type="hidden" name="id" value="<?= (int) $u['ID'] ?>">
+                                                    <input type="hidden" name="email" value="<?= e($busqueda) ?>">
                                                     <input type="hidden" name="accion" value="eliminar">
                                                     <button type="submit" class="boton-tabla boton-tabla-peligro">
                                                         Eliminar <span class="sr-only"><?= e($u['Username']) ?></span>
@@ -186,6 +212,7 @@ $textosEstado = ['activo' => 'Activa', 'bloqueado' => 'Bloqueada', 'inactivo' =>
                         </tbody>
                     </table>
                 </div>
+                <?php endif; ?>
             <?php endif; ?>
 
             <a href="home.php" class="boton-volver">

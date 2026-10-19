@@ -9,10 +9,18 @@ const MAX_INTENTOS_FALLIDOS = 5;
 
 const ESTADOS_CUENTA = ['activo', 'bloqueado', 'inactivo'];
 
-function listarUsuarios(): array {
-    return DB::getConnection()
-        ->query('SELECT ID, Username, Email, Role, Estado, Intentos_Fallidos FROM users ORDER BY Username')
-        ->fetchAll();
+// RF-28: si llega un texto, solo trae las cuentas cuyo email lo contiene (sin distinguir mayúsculas).
+function listarUsuarios(string $email = ''): array {
+    $sql = 'SELECT ID, Username, Email, Role, Estado, Intentos_Fallidos FROM users';
+    $parametros = [];
+    if ($email !== '') {
+        // % y _ son comodines en LIKE: se escapan para buscar el texto tal cual.
+        $sql .= " WHERE Email LIKE :email ESCAPE '!'";
+        $parametros[':email'] = '%' . strtr($email, ['!' => '!!', '%' => '!%', '_' => '!_']) . '%';
+    }
+    $stmt = DB::getConnection()->prepare($sql . ' ORDER BY Username');
+    $stmt->execute($parametros);
+    return $stmt->fetchAll();
 }
 
 // Cambia el estado de una cuenta. Al activarla se reinician los intentos fallidos.
