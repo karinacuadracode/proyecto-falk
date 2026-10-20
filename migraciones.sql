@@ -3,6 +3,8 @@
 -- Se puede correr más de una vez: lo que ya existe se saltea.
 -- Si cambiás la base, agregá tu ALTER al final de este archivo y también en falk_db.sql.
 
+USE `falk_db`;
+
 -- RF-25: estado de la cuenta e intentos fallidos
 ALTER TABLE `users`
   ADD COLUMN IF NOT EXISTS `Estado` enum('activo','bloqueado','inactivo') NOT NULL DEFAULT 'activo',

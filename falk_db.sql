@@ -7,6 +7,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 -- --------------------------------------------------------
+-- Creación y selección de la base de datos
+-- --------------------------------------------------------
+CREATE DATABASE IF NOT EXISTS `falk_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `falk_db`;
+
+-- --------------------------------------------------------
 
 -- Estructura de tabla para la tabla `audit_log`
 CREATE TABLE `audit_log` (
